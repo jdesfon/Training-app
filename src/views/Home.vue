@@ -1,14 +1,29 @@
 <template>
   <div class="home">
-    <h1>Jean-Michel D.</h1>
-    <i class="material-icons-outlined">
-      star
-    </i>
+    <template v-for="exercise of exercises">
+      <div :key="exercise.uid">{{ exercise.name }}</div>
+    </template>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data: () => ({
+    exercises: [
+      {
+        uid: "1",
+        name: "push ups"
+      },
+      {
+        uid: "2",
+        name: "pull ups"
+      },
+      {
+        uid: "3",
+        name: "squats"
+      }
+    ]
+  })
 };
 </script>
