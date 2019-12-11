@@ -1,8 +1,14 @@
 <template>
   <div class="home">
+    <div class="header">
+      <h1>{{ title }}</h1>
+    </div>
     <!-- Exercise list -->
     <template v-for="exercise of exercises">
-      <TheExerciseListItem :key="exercise.uid" :exercise="exercise" />
+      <TheExerciseListItem
+        :key="exercise.uid"
+        :exercise="exercise"
+      />
     </template>
   </div>
 </template>
@@ -17,6 +23,11 @@ import TheExerciseListItem from "@/components/TheExerciseListItem";
 export default {
   name: "Home",
   components: { TheExerciseListItem },
+  data() {
+    return {
+      title: "my exercises"
+    };
+  },
   computed: {
     ...mapGetters(EXERCISE, {
       exercises: GET_EXERCISES
@@ -27,10 +38,18 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  padding: 1rem;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 30rem;
+  min-height: 100vh;
+  background-color: aquamarine;
+}
+
+.header {
+  background-color: #1565c0;
+  width: 100%;
+  color: #fafafa;
+  text-align: center;
 }
 </style>

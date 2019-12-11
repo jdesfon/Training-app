@@ -1,18 +1,27 @@
 <template>
-  <div class="theExerciseSetForm" @keyup.enter="onSubmit">
+  <v-form
+    ref="exerciseSetForm"
+    v-model="isValid"
+    class="theExerciseSetForm"
+    :lazy-validation="lazy"
+  >
     <v-text-field
       v-model="reps"
       label="nb reps"
       placeholder="10"
       type="number"
-      :rules="[rules.min]"
+      :rules="[rules.min, rules.required]"
       mask="###"
       autofocus
-    >
-    </v-text-field>
+    />
 
-    <v-btn @click="onSubmit">submit</v-btn>
-  </div>
+    <v-btn
+      :disabled="!isValid"
+      @click="onSubmit"
+    >
+      submit
+    </v-btn>
+  </v-form>
 </template>
 
 <script>

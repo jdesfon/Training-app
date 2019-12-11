@@ -6,12 +6,19 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">Reps</th>
-            <th class="text-left">Date</th>
+            <th class="text-left">
+              Reps
+            </th>
+            <th class="text-left">
+              Date
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in sets(exerciseSlug)" :key="index">
+          <tr
+            v-for="(item, index) in sets(exerciseSlug)"
+            :key="index"
+          >
             <td>{{ item.reps }}</td>
             <td>{{ item.createdAt | date }}</td>
           </tr>
@@ -39,13 +46,13 @@ export default {
       exerciseSlug: ""
     };
   },
-  mounted() {
-    this.exerciseSlug = this.$route.params.name;
-  },
   computed: {
     ...mapGetters(EXERCISE, {
       sets: GET_SETS
     })
+  },
+  mounted() {
+    this.exerciseSlug = this.$route.params.name;
   }
 };
 </script>
