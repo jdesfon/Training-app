@@ -10,7 +10,7 @@ export const mutations = {
 
 export const getters = {
   [GET_EXERCISES]: state => state.exercises,
-  [GET_SETS]: state => state.stets
+  [GET_SETS]: state => state.sets
 };
 
 export const state = {
