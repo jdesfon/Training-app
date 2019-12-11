@@ -10,7 +10,8 @@ export const mutations = {
 
 export const getters = {
   [GET_EXERCISES]: state => state.exercises,
-  [GET_SETS]: state => state.sets
+  [GET_SETS]: state => exerciseSlug =>
+    state.sets.filter(set => set.exercise.slug === exerciseSlug)
 };
 
 export const state = {
