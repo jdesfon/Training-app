@@ -1,9 +1,24 @@
 <template>
   <div class="theExerciseListItem">
-    <v-btn :to="`exercise/${exercise.slug}`">{{ exercise.name }}</v-btn>
-    <v-btn fab small color="primary" @click="isAddSetVisible = true">
-      <v-icon>add</v-icon>
-    </v-btn>
+    <div class="theExerciseListItem__actions">
+      <div class="actions__exercise">
+        <v-btn block @click="isAddSetVisible = true"
+          >{{ exercise.name }}
+        </v-btn>
+      </div>
+
+      <div class="actions__stats">
+        <v-btn
+          block
+          class="elevation-1 mx-1"
+          text
+          color="primary"
+          :to="`exercise/${exercise.slug}`"
+        >
+          <v-icon large>insert_chart</v-icon>
+        </v-btn>
+      </div>
+    </div>
     <TheExerciseSetForm v-if="isAddSetVisible" @submit="submitReps" />
   </div>
 </template>
@@ -44,5 +59,22 @@ export default {
 
 <style lang="scss" scoped>
 .theExerciseListItem {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+
+  &__actions {
+    display: flex;
+  }
+
+  .actions {
+    &__exercise {
+      width: 20rem;
+    }
+
+    &__stats {
+      width: 5rem;
+    }
+  }
 }
 </style>
