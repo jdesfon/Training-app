@@ -1,5 +1,5 @@
 <template>
-  <form class="theExerciseSetForm" @keyup.enter="submit">
+  <div class="theExerciseSetForm" @keyup.enter="onSubmit">
     <v-text-field
       v-model="reps"
       label="nb reps"
@@ -7,11 +7,12 @@
       type="number"
       :rules="[rules.min]"
       mask="###"
+      autofocus
     >
     </v-text-field>
 
-    <v-btn @click="submit">submit</v-btn>
-  </form>
+    <v-btn @click="onSubmit">submit</v-btn>
+  </div>
 </template>
 
 <script>
@@ -24,7 +25,7 @@ export default {
     }
   }),
   methods: {
-    submit() {
+    onSubmit() {
       this.$emit("submit", this.reps);
       this.reps = null;
     }
