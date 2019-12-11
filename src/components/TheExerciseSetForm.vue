@@ -46,5 +46,9 @@ export default {
 
 <style lang="scss" scoped>
 .theExerciseSetForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 }
 </style>
