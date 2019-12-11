@@ -10,6 +10,9 @@
 
 <script>
 import TheExerciseSetForm from "@/components/TheExerciseSetForm";
+import { mapMutations } from "vuex";
+import { ADD_SET } from "@/store-types/mutations-types";
+import { EXERCISE } from "@/store-types/module-names";
 
 export default {
   name: "TheExerciseListItem",
@@ -24,8 +27,15 @@ export default {
     isAddSetVisible: false
   }),
   methods: {
+    ...mapMutations(EXERCISE, {
+      addSet: ADD_SET
+    }),
     submitReps(reps) {
-      console.log(`Users submitted ${reps} reps on this ${this.exercise.name}`);
+      this.addSet({
+        exercise: this.exercise,
+        reps
+      });
+
       this.isAddSetVisible = false;
     }
   }
