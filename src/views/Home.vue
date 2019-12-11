@@ -2,20 +2,8 @@
   <div class="home">
     <!-- Exercise list -->
     <template v-for="exercise of exercises">
-      <div :key="exercise.uid">
-        <v-btn :to="`exercise/${exercise.slug}`">{{ exercise.name }}</v-btn>
-        <v-btn fab small color="primary" @click="isSetDialogVisible = true">
-          <v-icon>add</v-icon>
-        </v-btn>
-      </div>
+      <TheExerciseListItem :key="exercise.uid" :exercise="exercise" />
     </template>
-
-    <!-- Modal -->
-    <v-dialog v-model="isSetDialogVisible" width="600">
-      <div class="setDialog">
-        <p>I'm a set dialog</p>
-      </div>
-    </v-dialog>
   </div>
 </template>
 
@@ -24,13 +12,11 @@ import { mapGetters } from "vuex";
 import { EXERCISE } from "@/store-types/module-names";
 import { GET_EXERCISES } from "@/store-types/getters-types";
 
+import TheExerciseListItem from "@/components/TheExerciseListItem";
+
 export default {
   name: "Home",
-  data() {
-    return {
-      isSetDialogVisible: false
-    };
-  },
+  components: { TheExerciseListItem },
   computed: {
     ...mapGetters(EXERCISE, {
       exercises: GET_EXERCISES
