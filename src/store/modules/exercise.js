@@ -30,6 +30,26 @@ export const state = {
       uid: "3",
       name: "squats",
       slug: "squats"
+    },
+    {
+      uid: "4",
+      name: "dips",
+      slug: "dips"
+    },
+    {
+      uid: "5",
+      name: "lunges",
+      slug: "lunges"
+    },
+    {
+      uid: "6",
+      name: "burpees",
+      slug: "burpees"
+    },
+    {
+      uid: "7",
+      name: "muscle ups",
+      slug: "muscle-ups"
     }
   ],
   sets: []
