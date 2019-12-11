@@ -3,7 +3,7 @@ import { GET_EXERCISES, GET_SETS } from "@/store-types/getters-types";
 
 export const mutations = {
   [ADD_SET]: (state, set) => {
-    console.log(set);
+    set.createdAt = new Date();
     state.sets.push(set);
   }
 };
