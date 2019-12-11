@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="exercise">
     <h1>{{ exerciseSlug }}</h1>
 
     <v-simple-table>
@@ -58,6 +58,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Exercise {
+.exercise {
+  background-color: cadetblue;
+  min-height: 100vh;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
 }
 </style>

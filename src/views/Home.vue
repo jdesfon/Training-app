@@ -43,7 +43,7 @@ export default {
   align-items: center;
   width: 30rem;
   min-height: 100vh;
-  background-color: aquamarine;
+  background-color: cadetblue;
 }
 
 .header {
