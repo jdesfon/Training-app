@@ -29,14 +29,16 @@ export default {
   name: "TheExerciseSetForm",
   data: () => ({
     reps: null,
+    isValid: false,
     rules: {
-      min: v => v > 0 || "You must do at least 1 rep"
+      min: v => v > 0 || "You must do at least 1 rep",
+      required: v => !!v || "a value is required"
     }
   }),
   methods: {
     onSubmit() {
       this.$emit("submit", this.reps);
-      this.reps = null;
+      this.$refs.exerciseSetForm.clear();
     }
   }
 };
