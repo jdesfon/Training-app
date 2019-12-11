@@ -28,10 +28,9 @@ export default {
 <style lang="scss" scoped>
 .home {
   padding: 1rem;
-}
-
-.setDialog {
-  background-color: #ffffff;
-  height: 100%;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
