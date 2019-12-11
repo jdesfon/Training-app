@@ -28,9 +28,9 @@ export default {
 <style lang="scss" scoped>
 .home {
   padding: 1rem;
-  width: 400px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -1,21 +1,19 @@
 <template>
   <div>
-    <h1>exercise view</h1>
+    <h1>{{ exerciseSlug }}</h1>
 
     <v-simple-table>
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">Exercise</th>
             <th class="text-left">Reps</th>
             <th class="text-left">Date</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in sets(exerciseSlug)" :key="index">
-            <td>{{ item.exercise.name }}</td>
             <td>{{ item.reps }}</td>
-            <td>{{ item.createdAt }}</td>
+            <td>{{ item.createdAt | date }}</td>
           </tr>
         </tbody>
       </template>
@@ -24,12 +22,18 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapGetters } from "vuex";
 import { EXERCISE } from "@/store-types/module-names";
 import { GET_SETS } from "@/store-types/getters-types";
 
 export default {
   name: "Exercise",
+  filters: {
+    date: val => {
+      return moment(val).format("MMM Do, H:mm:ss");
+    }
+  },
   data() {
     return {
       exerciseSlug: ""
