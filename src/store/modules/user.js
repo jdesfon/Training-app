@@ -1,30 +1,38 @@
+import router from '../../router'
 import { Auth } from 'aws-amplify'
 
 import {
     SIGN_IN,
     SIGN_UP,
-    SIGN_OUT
+    SIGN_OUT,
+    IS_CURRENT_SESSION
 } from '@/store-types/actions-types'
 
 import {
-    SET_USER,
-    REMOVE_USER
+    SET_AUTHENTICATION_STATUS,
 } from '@/store-types/mutations-types'
 
 export const actions = {
-    async [SIGN_IN]({commit}, { email, password }) {
-        try {
-            const user = await Auth.signIn(email, password)
-            commit(SET_USER, user)
-            alert('logged in')
-        } catch (error) {
+    [SIGN_IN]({commit}, { email, password }) {
+        return Auth.signIn(email, password).then(() => {
+            commit(SET_AUTHENTICATION_STATUS, true)
+            router.push({ name: 'home' })
+        }).catch(error => {
             alert(error.message)
-        }
+        })
+    },
+    [IS_CURRENT_SESSION]({ commit}) {
+        return Auth.currentSession().then(() => {
+            commit(SET_AUTHENTICATION_STATUS, true)
+            router.push({ name: 'home' })
+        }).catch(() => {
+            router.push({ name: 'login' })
+        })
     },
     async [SIGN_UP]({commit}, { email, password }) {
         try {
-            const user = await Auth.signUp(email, password)
-            commit(SET_USER, user)
+            await Auth.signUp(email, password)
+            commit(SET_AUTHENTICATION_STATUS, false)
             alert('signed in')
         } catch (error) {
             alert(error.message)
@@ -41,18 +49,12 @@ export const actions = {
 }
 
 export const mutations = {
-    [SET_USER](state, user) {
-        state.user = user
-        state.isAuthenticated = true
+    [SET_AUTHENTICATION_STATUS](state, isAuthenticated) {
+        state.isAuthenticated = isAuthenticated
     },
-    [REMOVE_USER](state) {
-        state.user = null
-        state.isAuthenticated = false
-    }
 }
 
 export const state = () => ({
-    user: null,
     isAuthenticated: false,
 })
 
