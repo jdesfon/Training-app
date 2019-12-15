@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "apexcharts": "^3.10.1",
+    "aws-amplify": "^2.2.0",
     "core-js": "^3.4.3",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
