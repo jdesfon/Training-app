@@ -1,11 +1,7 @@
 <template>
   <div class="home">
-    <div class="header">
-      <h1>{{ title }}</h1>
-    </div>
-    <!-- Exercise list -->
-    <TheExerciseListItem />
-    <TheAddSetForm />
+    <Header :title="title" />
+    <ExercisesList />
   </div>
 </template>
 
@@ -14,14 +10,14 @@ import { mapGetters } from "vuex";
 import { EXERCISE } from "@/store-types/module-names";
 import { GET_EXERCISES } from "@/store-types/getters-types";
 
-import TheExerciseListItem from "@/components/TheExerciseListItem/index.vue";
-import TheAddSetForm from "@/components/TheAddSetForm.vue";
+import Header from "@/components/Header.vue";
+import ExercisesList from "@/components/ExercisesList.vue";
 
 export default {
   name: "Home",
   components: {
-    TheExerciseListItem,
-    TheAddSetForm
+    Header,
+    ExercisesList
   },
   data() {
     return {
@@ -43,13 +39,5 @@ export default {
   align-items: center;
   min-height: 100vh;
   background-color: #ffffff;
-  border: 1px solid #000000;
-}
-
-.header {
-  background-color: #cdcdcd;
-  width: 100%;
-  color: #fafafa;
-  text-align: center;
 }
 </style>
