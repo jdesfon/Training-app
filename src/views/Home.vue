@@ -4,12 +4,7 @@
       <h1>{{ title }}</h1>
     </div>
     <!-- Exercise list -->
-    <template v-for="exercise of exercises">
-      <TheExerciseListItem
-        :key="exercise.uid"
-        :exercise="exercise"
-      />
-    </template>
+    <TheExerciseListItem />
   </div>
 </template>
 
@@ -18,7 +13,7 @@ import { mapGetters } from "vuex";
 import { EXERCISE } from "@/store-types/module-names";
 import { GET_EXERCISES } from "@/store-types/getters-types";
 
-import TheExerciseListItem from "@/components/TheExerciseListItem";
+import TheExerciseListItem from "@/components/TheExerciseListItem/index.vue";
 
 export default {
   name: "Home",
@@ -43,11 +38,12 @@ export default {
   align-items: center;
   width: 30rem;
   min-height: 100vh;
-  background-color: cadetblue;
+  background-color: #ffffff;
+  border: 1px solid #000000;
 }
 
 .header {
-  background-color: #1565c0;
+  background-color: #cdcdcd;
   width: 100%;
   color: #fafafa;
   text-align: center;

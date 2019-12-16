@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .exercise {
-  background-color: cadetblue;
+  background-color: #ffffff;
   min-height: 100vh;
   width: 30rem;
   display: flex;
