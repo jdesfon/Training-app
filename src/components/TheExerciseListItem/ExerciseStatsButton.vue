@@ -1,12 +1,7 @@
 <template>
   <div class="exerciseStatsButton">
     <div class="exerciseStatsButton__icon">
-      <v-icon
-        large
-        color="#ff1744"
-      >
-        trending_up
-      </v-icon>
+      <i class="material-icons">trending_up</i>
     </div>
     <div class="exerciseStatsButton__text">
       stats
@@ -39,6 +34,12 @@ export default {};
     justify-content: center;
     align-items: center;
     padding: 0.65rem;
+
+    i {
+      font-size: 2.2rem;
+      color: #ff1744;
+      font-weight: 900;
+    }
   }
 
   &__text {
