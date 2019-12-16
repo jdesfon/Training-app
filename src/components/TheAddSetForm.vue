@@ -4,21 +4,21 @@
       10
     </div>
     <div class="theAddSetForm__input-controls">
-      <div class="control-button">
+      <button class="control-button grey-ripple">
         <i class="material-icons">add</i>
-      </div>
-      <div class="control-button">
+      </button>
+      <button class="control-button grey-ripple">
         <v-icon
           large
           color="#000000"
         >
           remove
         </v-icon>
-      </div>
+      </button>
     </div>
-    <div class="theAddSetForm__submit-button">
+    <button class="theAddSetForm__submit-button blue-ripple">
       <i class="material-icons">check</i>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -79,6 +79,8 @@ export default {
     width: 90px;
 
     .control-button {
+      outline: none;
+      border: none;
       border-radius: 0.5rem;
       display: flex;
       justify-content: center;
@@ -95,6 +97,8 @@ export default {
   }
 
   &__submit-button {
+    outline: none;
+    border: none;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
     border-radius: 0.5rem;
     background-color: #2196f3;
