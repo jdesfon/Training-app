@@ -5,6 +5,7 @@
     </div>
     <!-- Exercise list -->
     <TheExerciseListItem />
+    <TheAddSetForm />
   </div>
 </template>
 
@@ -14,10 +15,14 @@ import { EXERCISE } from "@/store-types/module-names";
 import { GET_EXERCISES } from "@/store-types/getters-types";
 
 import TheExerciseListItem from "@/components/TheExerciseListItem/index.vue";
+import TheAddSetForm from "@/components/TheAddSetForm.vue";
 
 export default {
   name: "Home",
-  components: { TheExerciseListItem },
+  components: {
+    TheExerciseListItem,
+    TheAddSetForm
+  },
   data() {
     return {
       title: "my exercises"
@@ -36,7 +41,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30rem;
   min-height: 100vh;
   background-color: #ffffff;
   border: 1px solid #000000;

@@ -48,7 +48,7 @@ export default {
 <style lang="scss" scoped>
 .theExerciseListItem {
   margin-top: 1rem;
-  width: 400px;
+  width: 342px;
   height: 74px;
   display: flex;
   justify-content: space-between;
