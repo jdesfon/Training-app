@@ -1,13 +1,22 @@
 <template>
   <div class="theAddSetForm">
-    <div class="theAddSetForm__number-input">
-      10
-    </div>
+    <input
+      class="theAddSetForm__number-input"
+      type="number"
+      v-model="reps"
+    />
     <div class="theAddSetForm__input-controls">
-      <button class="control-button grey-ripple">
+      <button
+        class="control-button grey-ripple"
+        @click="increaseReps"
+      >
         <i class="material-icons">add</i>
       </button>
-      <button class="control-button grey-ripple">
+      <button
+        class="control-button grey-ripple"
+        :disabled="reps < 1"
+        @click="decreaseReps"
+      >
         <v-icon
           large
           color="#000000"
@@ -26,17 +35,19 @@
 export default {
   name: "TheExerciseSetForm",
   data: () => ({
-    reps: null,
-    isValid: false,
-    rules: {
-      min: v => v > 0 || "You must do at least 1 rep",
-      required: v => !!v || "a value is required"
-    }
+    reps: 0,
+    isValid: false
   }),
   methods: {
-    onSubmit() {
-      this.$emit("submit", this.reps);
-      this.$refs.exerciseSetForm.clear();
+    increaseReps() {
+      if (this.reps < 10000) {
+        this.reps += 1;
+      }
+    },
+    decreaseReps() {
+      if (this.reps > 0) {
+        this.reps -= 1;
+      }
     }
   }
 };
@@ -56,6 +67,8 @@ export default {
   justify-content: space-between;
 
   &__number-input {
+    cursor: pointer;
+    outline: none;
     border-radius: 0.5rem;
     border: 2px solid #e5e5e5;
     background-color: #c4c4c4;
@@ -68,6 +81,19 @@ export default {
     font-weight: 900;
     color: #000000;
     letter-spacing: -3px;
+    text-align: center;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
   }
 
   &__input-controls {
@@ -92,6 +118,10 @@ export default {
       i {
         font-size: 2rem;
         color: #000000;
+      }
+
+      &:disabled {
+        background-color: #eeeeee;
       }
     }
   }
