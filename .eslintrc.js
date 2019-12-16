@@ -5,14 +5,15 @@ module.exports = {
   },
   extends: ["plugin:vue/strongly-recommended"],
   rules: {
+    "semi": [2, "always", { "omitLastInOneLineBlock": true }],
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     "vue/html-self-closing": [
       "error",
       {
         html: {
-          void: "never",
-          normal: "always",
+          void: "always",
+          normal: "never",
           component: "always"
         },
         svg: "always",

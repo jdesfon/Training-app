@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Amplify from 'aws-amplify';
+import Amplify from "aws-amplify";
 import VueApexCharts from "vue-apexcharts";
 import App from "./App.vue";
 import router from "./router";
@@ -19,18 +19,13 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "exercises",
+        name: config.API_NAME,
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
-      },
-      {
-        name: "sets",
-        endpoint: config.apiGateway.URL,
-        region: config.apiGateway.REGION
-      },
+      }
     ]
   }
-})
+});
 
 Vue.component("apexchart", VueApexCharts);
 
