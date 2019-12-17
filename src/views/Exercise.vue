@@ -14,10 +14,10 @@
           />
         </template>
         <template v-else>
-          <SingleNumber 
-            :key="index" 
-            :title="stat.name" 
-            :value="stat.value" 
+          <SingleNumber
+            :key="index"
+            :title="stat.name"
+            :value="stat.value"
           />
         </template>
       </template>
@@ -26,33 +26,50 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
-import SingleNumber from "@/components/charts/SingleNumber";
 import { mapGetters } from "vuex";
 import { EXERCISE } from "@/store-types/module-names";
 import { GET_SETS } from "@/store-types/getters-types";
+import Header from "@/components/Header.vue";
+import SingleNumber from "@/components/charts/SingleNumber";
+
+import { getTotalReps, getTotalFromDays } from "@/helpers/setsHelper";
 
 export default {
   name: "Exercise",
   components: { Header, SingleNumber },
+  mounted() {
+    this.exerciseSlug = this.$route.params.name;
+    const today = getTotalFromDays(this.sets, 0);
+    const lastWeek = getTotalFromDays(this.sets, 7);
+    const lastMonth = getTotalFromDays(this.sets, 30);
+    const total = getTotalReps(this.sets);
+
+    this.today = today;
+    this.lastWeek = lastWeek;
+    this.lastMonth = lastMonth;
+    this.total = total;
+  },
   data() {
     return {
       exerciseSlug: "",
-      numberStats: [
-        { name: "Today", value: 45 },
-        { name: "Last 7 days", value: 354 },
-        { name: "Last 30 days", value: 2340 },
-        { name: "All time", value: 6821 }
-      ]
+      today: 0,
+      lastWeek: 0,
+      lastMonth: 0,
+      total: 0
     };
   },
   computed: {
     ...mapGetters(EXERCISE, {
       sets: GET_SETS
-    })
-  },
-  mounted() {
-    this.exerciseSlug = this.$route.params.name;
+    }),
+    numberStats() {
+      return [
+        { name: "Today", value: this.today },
+        { name: "Last 7 days", value: this.lastWeek },
+        { name: "Last 30 days", value: this.lastMonth },
+        { name: "All time", value: this.total }
+      ];
+    }
   }
 };
 </script>
