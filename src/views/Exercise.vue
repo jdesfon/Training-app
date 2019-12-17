@@ -40,8 +40,8 @@ export default {
   mounted() {
     this.exerciseSlug = this.$route.params.name;
     const today = getTotalFromDays(this.sets, 0);
-    const lastWeek = getTotalFromDays(this.sets, 7);
-    const lastMonth = getTotalFromDays(this.sets, 30);
+    const lastWeek = getTotalFromDays(this.sets, 6);
+    const lastMonth = getTotalFromDays(this.sets, 29);
     const total = getTotalReps(this.sets);
 
     this.today = today;
