@@ -5,6 +5,8 @@ import { FETCH_EXERCISES } from "@/store-types/actions-types";
 import { ADD_SET, SET_EXERCISES } from "@/store-types/mutations-types";
 import { GET_EXERCISES, GET_SETS } from "@/store-types/getters-types";
 
+const sets = require("../../mocks/sets.json");
+
 export const actions = {
   [FETCH_EXERCISES]({ commit }) {
     return API.get(config.API_NAME, endpoints.listExercises)
@@ -29,13 +31,12 @@ export const mutations = {
 
 export const getters = {
   [GET_EXERCISES]: state => state.exercises,
-  [GET_SETS]: state => exerciseSlug =>
-    state.sets.filter(set => set.exercise.slug === exerciseSlug)
+  [GET_SETS]: state => state.sets
 };
 
-export const state = {
+export const state = () => ({
   exercises: [],
-  sets: []
-};
+  sets
+});
 
 export const namespaced = true;
