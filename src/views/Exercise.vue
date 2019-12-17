@@ -1,49 +1,49 @@
 <template>
   <div class="exercise">
-    <h1>{{ exerciseSlug }}</h1>
-
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left">
-              Reps
-            </th>
-            <th class="text-left">
-              Date
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(item, index) in sets(exerciseSlug)"
+    <Header :title="exerciseSlug" />
+    <div class="number-cards">
+      <template v-for="(stat, index) of numberStats">
+        <template v-if="index === 3">
+          <SingleNumber
             :key="index"
-          >
-            <td>{{ item.reps }}</td>
-            <td>{{ item.createdAt | date }}</td>
-          </tr>
-        </tbody>
+            :title="stat.name"
+            :value="stat.value"
+            :background-color="'#ff1744'"
+            :title-color="'#ffffff'"
+            :number-color="'#ffffff'"
+          />
+        </template>
+        <template v-else>
+          <SingleNumber 
+            :key="index" 
+            :title="stat.name" 
+            :value="stat.value" 
+          />
+        </template>
       </template>
-    </v-simple-table>
+    </div>
   </div>
 </template>
 
 <script>
-import moment from "moment";
+import Header from "@/components/Header.vue";
+import SingleNumber from "@/components/charts/SingleNumber";
 import { mapGetters } from "vuex";
 import { EXERCISE } from "@/store-types/module-names";
 import { GET_SETS } from "@/store-types/getters-types";
 
 export default {
   name: "Exercise",
-  filters: {
-    date: val => {
-      return moment(val).format("MMM Do, H:mm:ss");
-    }
-  },
+  components: { Header, SingleNumber },
   data() {
     return {
-      exerciseSlug: ""
+      exerciseSlug: "",
+      numberStats: [
+        { name: "Today", value: 45 },
+        { name: "Last 7 days", value: 354 },
+        { name: "Last 30 days", value: 2340 },
+        { name: "All time", value: 6821 }
+      ]
     };
   },
   computed: {
@@ -61,8 +61,17 @@ export default {
 .exercise {
   background-color: #ffffff;
   min-height: 100vh;
-  width: 30rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  .number-cards {
+    margin-top: 0.5rem;
+
+    width: 342px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 </style>
