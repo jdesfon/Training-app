@@ -53,13 +53,14 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { USER } from "@/store-types/module-names";
 import { SIGN_IN, IS_CURRENT_SESSION } from "@/store-types/actions-types";
+import { GET_LOADING } from "@/store-types/getters-types";
 
 export default {
   mounted() {
-    this.isCurrentSession();
+    // this.isCurrentSession();
   },
   data: () => ({
     email: "",

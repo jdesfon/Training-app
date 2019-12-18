@@ -17,7 +17,7 @@ const routes = [
     component: Default,
     redirect: { name: "exercises" },
     meta: {
-      middleware: authenticated
+      // middleware: authenticated
     },
     children: [
       {
@@ -37,7 +37,7 @@ const routes = [
     name: "login",
     component: Login,
     meta: {
-      middleware: authenticated
+      // middleware: authenticated
     }
   }
 ];
