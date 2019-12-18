@@ -4,7 +4,9 @@ import VueRouter from "vue-router";
 import Default from "../layouts/Default";
 import Home from "../views/Home.vue";
 import Exercise from "../views/Exercise";
-import Login from "../views/auth/index.vue";
+import Auth from "../views/auth/index.vue";
+import SignIn from "../views/auth/SignIn.vue";
+import SignUp from "../views/auth/SignUp.vue";
 import store from "../store";
 import authenticated from "../middleware/authenticated";
 
@@ -33,12 +35,28 @@ const routes = [
     ]
   },
   {
-    path: "/login",
-    name: "login",
-    component: Login,
+    path: "/auth",
+    name: "auth",
+    component: Auth,
     meta: {
       // middleware: authenticated
-    }
+    },
+    children: [
+      {
+        name: "signIn",
+        component: SignIn,
+        path: "/sign-in"
+      },
+      {
+        name: "signUp",
+        component: SignUp,
+        path: "/sign-up"
+      }
+    ]
+  },
+  {
+    path: "**",
+    redirect: { name: "signIn" }
   }
 ];
 
