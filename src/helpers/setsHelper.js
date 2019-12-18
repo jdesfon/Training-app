@@ -26,6 +26,16 @@ export function getTotalReps(sets) {
   return sets.reduce((acc, curr) => (acc += curr.reps), 0);
 }
 
+/**
+ * Calculate total of reps performed between reference day
+ * and reference day - offset days
+ *
+ * @export
+ * @param {set[]} sets
+ * @param {number} offset number of days
+ * @param {string} [reference=Date.now()] 
+ * @returns {number} total reps performed
+ */
 export function getTotalFromDays(sets, offset, reference = Date.now()) {
   const dayOffset = moment(reference).subtract(offset, "day");
   return sets.reduce((acc, set) => {
@@ -35,3 +45,58 @@ export function getTotalFromDays(sets, offset, reference = Date.now()) {
     return acc;
   }, 0);
 }
+
+/**
+ * Generates array containg last nDays
+ *
+ * @export
+ * @param {number} nDays
+ * @param {string} [format="YYYY-MM-DD"]
+ * @returns {string[]} array of days
+ */
+export function getLastNDayInArray(nDays, format = "YYYY-MM-DD") {
+  return Array(nDays)
+    .fill()
+    .map((_, index) => {
+      return moment()
+        .subtract(index, "day")
+        .format(format);
+    });
+} 
+
+/**
+ * Get total reps for each day contained in daysArr
+ *
+ * @export
+ * @param {string[]} daysArr
+ * @param {set[]} sets
+ * @returns {object}
+ */
+export function getTotalPerDay(daysArr, sets) {
+  return daysArr.map(day => {
+    return {
+      [day]: sets.reduce((acc, set) => {
+        if (moment(day).isSame(set.createdAt, "day")) {
+          acc += set.reps;
+        }
+
+        return acc;
+      }, 0)
+    };
+  });
+}
+
+/**
+ * Group total per day array in group of 7 days
+ *
+ * @export
+ * @param {object} totalPerDay
+ * @returns {object[][]}
+ */
+export function groupSetPerWeek(totalPerDay) {
+  return totalPerDay.reduce((acc, day, index) => {
+    index % 7 === 0 ? acc.push([day]) : acc[acc.length - 1].push(day);
+    return acc;
+  }, []);
+}
+
