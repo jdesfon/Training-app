@@ -1,4 +1,5 @@
 export const SET_AUTHENTICATION_STATUS = "SET_AUTHENTICATION_STATUS";
+export const SET_LOADING = "SET_LOADING";
 
 export const ADD_SET = "ADD_SET";
 export const SET_EXERCISES = "SET_EXERCISES";

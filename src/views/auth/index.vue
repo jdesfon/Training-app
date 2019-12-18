@@ -4,7 +4,15 @@
       Fitness tracker
     </h1>
 
+    <v-progress-circular
+      v-if="isLoading"
+      indeterminate
+      :size="72"
+      :width="12"
+    />
+
     <form
+      v-if="!isLoading"
       class="login-form"
       @submit.prevent="handleSubmit"
     >
@@ -17,6 +25,7 @@
         id="email"
         type="email"
         name="email"
+        placeholder="enter your email"
         v-model="email"
       />
 
@@ -29,6 +38,7 @@
         id="password"
         type="password"
         name="password"
+        placeholder="password"
         v-model="password"
       />
 
