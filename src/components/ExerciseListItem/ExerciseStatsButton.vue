@@ -10,7 +10,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "ExercisesStatsButton"
+};
 </script>
 
 <style lang="scss" scoped>

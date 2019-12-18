@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  name: "TheExerciseSetForm",
+  name: "AddSetForm",
   data: () => ({
     reps: 0,
     isValid: false

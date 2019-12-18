@@ -13,7 +13,7 @@ import { ADD_SET } from "@/store-types/mutations-types";
 import { EXERCISE } from "@/store-types/module-names";
 
 export default {
-  name: "TheExerciseListItem",
+  name: "ExerciseListItem",
   props: {
     exercise: {
       type: Object,
