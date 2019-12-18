@@ -1,47 +1,37 @@
 <template>
-  <div class="baseHeatMap">
-    <apexchart
-      type="heatmap"
-      height="350"
-      :options="options"
-      :series="series"
-    />
-  </div>
+  <apexchart
+    type="heatmap"
+    :height="height"
+    :width="width"
+    :options="options"
+    :series="series"
+  />
 </template>
 
 <script>
-function generateData(count, yrange) {
-  let i = 0;
-  const series = [];
-  while (i < count) {
-    const x = "Day " + (i + 1).toString();
-    const y =
-      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-    series.push({ x, y });
-    i++;
-  }
-  return series;
-}
-
 export default {
   name: "BaseHeatMap",
   props: {
+    height: {
+      type: Number,
+      required: true
+    },
     width: {
       type: Number,
-      default: () => 500
+      required: true
     },
     options: {
       type: Object,
       default: () => ({
+        chart: {
+          toolbar: {
+            show: false
+          },
+        },
         dataLabels: {
           enabled: false
         },
-        colors: ["#008FFB"],
-
-        title: {
-          text: "HeatMap Chart (Single color)"
-        }
+        colors: ["#FF1744"],
       })
     },
     series: {
@@ -49,67 +39,20 @@ export default {
       default: () => {
         return [
           {
-            name: "Week 9",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
+            name: "W4",
+            data: [1, 2, 3, 4, 5, 6, 7]
           },
           {
-            name: "Week 8",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
+            name: "W3",
+            data: [1, 2, 3, 4, 5, 6, 7]
           },
           {
-            name: "Week 7",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
+            name: "W2",
+            data: [1, 2, 3, 4, 5, 6, 7]
           },
           {
-            name: "Week 6",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
-          },
-          {
-            name: "Week 5",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
-          },
-          {
-            name: "Week 4",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
-          },
-          {
-            name: "Week 3",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
-          },
-          {
-            name: "Week 2",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
-          },
-          {
-            name: "Week 1",
-            data: generateData(7, {
-              min: 0,
-              max: 90
-            })
+            name: "W1",
+            data: [1, 2, 3, 4, 5, 6, 7]
           }
         ];
       }
@@ -117,9 +60,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.baseHeatMap {
-  background-color: white;
-}
-</style>

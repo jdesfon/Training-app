@@ -93,7 +93,7 @@ export function getTotalPerDay(daysArr, sets) {
  * @param {object} totalPerDay
  * @returns {object[][]}
  */
-export function groupSetPerWeek(totalPerDay) {
+export function groupSetsPerWeek(totalPerDay) {
   return totalPerDay.reduce((acc, day, index) => {
     index % 7 === 0 ? acc.push([day]) : acc[acc.length - 1].push(day);
     return acc;
