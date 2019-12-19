@@ -1,25 +1,30 @@
 <template>
-    <div class="theAddSetForm">
-        <input class="theAddSetForm__number-input" type="number" v-model="reps" />
-        <div class="theAddSetForm__input-controls">
-            <button class="control-button grey-ripple" @click="increaseReps">
-                <i class="material-icons">add</i>
-            </button>
-            <button class="control-button grey-ripple" :disabled="reps < 1" @click="decreaseReps">
-                <v-icon large color="#000000">
-                    remove
-                </v-icon>
+    <BaseContainer>
+        <div class="theAddSetForm">
+            <input class="theAddSetForm__number-input" type="number" v-model="reps" />
+            <div class="theAddSetForm__input-controls">
+                <button class="control-button grey-ripple" @click="increaseReps">
+                    <i class="material-icons">add</i>
+                </button>
+                <button class="control-button grey-ripple" :disabled="reps < 1" @click="decreaseReps">
+                    <v-icon large color="#000000">
+                        remove
+                    </v-icon>
+                </button>
+            </div>
+            <button class="theAddSetForm__submit-button blue-ripple">
+                <i class="material-icons">check</i>
             </button>
         </div>
-        <button class="theAddSetForm__submit-button blue-ripple">
-            <i class="material-icons">check</i>
-        </button>
-    </div>
+    </BaseContainer>
 </template>
 
 <script>
+import BaseContainer from './containers/BaseContainer'
+
 export default {
     name: 'AddSetForm',
+    components: { BaseContainer },
     data: () => ({
         reps: 0,
         isValid: false,
@@ -41,13 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .theAddSetForm {
-    margin-top: 1rem;
-
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 0.5rem;
-    width: 342px;
     height: 160px;
-    padding: 1rem 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -70,14 +69,20 @@ export default {
         text-align: center;
     }
 
-    /* Chrome, Safari, Edge, Opera */
+    /*
+        Chrome, Safari, Edge, Opera
+        Remove spinners
+     */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
 
-    /* Firefox */
+    /*
+        Firefox
+        remove spinners
+    */
     input[type='number'] {
         -moz-appearance: textfield;
     }
@@ -92,12 +97,11 @@ export default {
 
         .control-button {
             outline: none;
-            border: none;
-            border-radius: 0.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
             height: calc(50% - 0.25rem);
+            border-radius: 0.5rem;
             border: 2px solid #e5e5e5;
             background-color: #c4c4c4;
 

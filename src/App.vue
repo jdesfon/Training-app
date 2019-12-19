@@ -9,3 +9,10 @@ export default {
     name: 'App',
 }
 </script>
+
+<style lang="scss" scoped>
+#app {
+    display: flex;
+    justify-content: center;
+}
+</style>

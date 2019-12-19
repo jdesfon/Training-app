@@ -1,10 +1,11 @@
 <template>
     <div class="exercise">
         <Header :title="exerciseSlug" />
-        <div class="number-cards">
+        <div class="singleNumber-container">
             <template v-for="(stat, index) of numberStats">
                 <template v-if="index === 3">
                     <SingleNumber
+                        class="singleNumber"
                         :key="index"
                         :title="stat.name"
                         :value="stat.value"
@@ -14,14 +15,12 @@
                     />
                 </template>
                 <template v-else>
-                    <SingleNumber :key="index" :title="stat.name" :value="stat.value" />
+                    <SingleNumber class="singleNumber" :key="index" :title="stat.name" :value="stat.value" />
                 </template>
             </template>
         </div>
 
-        <div class="baseHeatMap">
-            <BaseHeatMap :width="heatMap.width" :height="heatMap.height" :series="heatMap.series" />
-        </div>
+        <BaseHeatMap class="baseHeatMap" :width="heatMap.width" :height="heatMap.height" :series="heatMap.series" />
     </div>
 </template>
 
@@ -43,7 +42,11 @@ import {
 
 export default {
     name: 'Exercise',
-    components: { Header, SingleNumber, BaseHeatMap },
+    components: {
+        BaseHeatMap,
+        Header,
+        SingleNumber,
+    },
     mounted() {
         this.exerciseSlug = this.$route.params.name
         const today = getTotalFromDays(this.sets, 0)
@@ -110,26 +113,23 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 342px;
 
-    .number-cards {
-        margin-top: 0.5rem;
-
-        width: 342px;
+    .singleNumber-container {
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+
+        .singleNumber {
+            width: calc(50% - 0.25rem);
+            margin: 0.25rem 0;
+        }
     }
 
     .baseHeatMap {
-        margin-top: 4px;
-
-        border-radius: 0.5rem;
-        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-        width: 334px;
-        height: 225px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 100%;
+        margin: 0.25rem 0;
     }
 }
 </style>

@@ -14,3 +14,13 @@ export default {
     components: { ExerciseListItem, AddSetForm },
 }
 </script>
+
+<style lang="scss" scoped>
+.exercisesList {
+    width: 100%;
+
+    div {
+        margin: 0.25rem 0;
+    }
+}
+</style>

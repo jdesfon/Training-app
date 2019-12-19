@@ -1,42 +1,34 @@
 <template>
-    <div class="exerciseStatsButton">
-        <div class="exerciseStatsButton__icon">
-            <i class="material-icons">trending_up</i>
-        </div>
-        <div class="exerciseStatsButton__text">
-            stats
-        </div>
-    </div>
+    <ListItemContainer class="exerciseStatsButton">
+        <template #main>
+            <div class="main">
+                <i class="material-icons">trending_up</i>
+            </div>
+        </template>
+        <template #footer>
+            <span class="footer">stats</span>
+        </template>
+    </ListItemContainer>
 </template>
 
 <script>
+import ListItemContainer from '../containers/ListItemContainer'
+
 export default {
     name: 'ExercisesStatsButton',
+    components: { ListItemContainer },
 }
 </script>
 
 <style lang="scss" scoped>
 .exerciseStatsButton {
-    height: 100%;
-    width: 68px;
+    width: 4.25rem;
 
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 0.5rem;
-    background-color: #ffffff;
-
-    display: flex;
-    flex-direction: column;
-
-    &__icon {
-        height: calc(100% - 17px);
-        border-top-left-radius: 0.5rem;
-        border-top-right-radius: 0.5rem;
+    .main {
+        width: 100%;
         display: flex;
-        flex-grow: 1;
         justify-content: center;
-        align-items: center;
-        padding: 0.65rem;
-
+        text-align: center;
         i {
             font-size: 2.2rem;
             color: #ff1744;
@@ -44,21 +36,9 @@ export default {
         }
     }
 
-    &__text {
-        height: 17px;
-        color: #ffffff;
-        background-color: #424242;
-        display: flex;
-        justify-content: center;
-        border-bottom-left-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-        font-size: 0.7rem;
-        padding: 0 10px;
-        font-weight: 900;
-    }
-
-    &:hover {
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    .footer {
+        text-align: center;
+        width: 100%;
     }
 }
 </style>

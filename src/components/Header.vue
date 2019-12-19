@@ -18,9 +18,8 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-    width: 342px;
+    width: 100%;
     color: #424242;
-    text-align: center;
     border-bottom: 1px solid black;
     text-align: left;
     font-weight: 900;

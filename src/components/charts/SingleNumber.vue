@@ -1,13 +1,17 @@
 <template>
-    <div class="singleNumber" :style="{ backgroundColor: backgroundColor }">
-        <p class="title" :style="{ color: titleColor }">
-            {{ title }}
-        </p>
-        <span class="value" :style="{ color: numberColor }">{{ value | cardNumber }}</span>
-    </div>
+    <BaseContainer :style="{ backgroundColor: backgroundColor }">
+        <div class="singleNumber">
+            <p class="title" :style="{ color: titleColor }">
+                {{ title }}
+            </p>
+            <span class="value" :style="{ color: numberColor }">{{ value | cardNumber }}</span>
+        </div>
+    </BaseContainer>
 </template>
 
 <script>
+import BaseContainer from '../containers/BaseContainer'
+
 export default {
     name: 'SingleNumber',
     props: {
@@ -41,16 +45,14 @@ export default {
             return val
         },
     },
+    components: { BaseContainer },
 }
 </script>
 
 <style lang="scss" scoped>
 .singleNumber {
-    margin: 4px;
-
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 0.5rem;
-    width: 163px;
+    margin: 0.25rem;
+    width: 100%;
     height: 163px;
     position: relative;
     display: flex;

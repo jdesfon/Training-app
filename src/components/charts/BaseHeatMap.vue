@@ -1,11 +1,28 @@
 <template>
-    <apexchart type="heatmap" :height="height" :width="width" :options="options" :series="series" />
+    <BaseContainer>
+        <div class="baseHeatmap">
+            <p class="title" :style="{ color: titleColor }">
+                {{ title }}
+            </p>
+            <apexchart type="heatmap" :height="height" :width="width" :options="options" :series="series" />
+        </div>
+    </BaseContainer>
 </template>
 
 <script>
+import BaseContainer from '../containers/BaseContainer'
+
 export default {
     name: 'BaseHeatMap',
     props: {
+        title: {
+            type: String,
+            default: () => 'Last 28 days',
+        },
+        titleColor: {
+            type: String,
+            default: () => '#ff1744',
+        },
         height: {
             type: Number,
             required: true,
@@ -52,5 +69,24 @@ export default {
             },
         },
     },
+    components: { BaseContainer },
 }
 </script>
+
+<style lang="scss" scoped>
+.baseHeatmap {
+    margin: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+        width: 100%;
+        text-align: left;
+        font-weight: 600;
+        padding-top: 1rem;
+        padding-left: 1.2rem;
+    }
+}
+</style>
