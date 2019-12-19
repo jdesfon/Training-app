@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment'
 
 /**
  * @typedef set
@@ -14,7 +14,6 @@ import moment from "moment";
  * @property {string} createdAt - creation date
  */
 
-
 /**
  * Calculate total of reps from sets array
  *
@@ -23,7 +22,10 @@ import moment from "moment";
  * @returns {number}
  */
 export function getTotalReps(sets) {
-  return sets.reduce((acc, curr) => (acc += curr.reps), 0);
+    return sets.reduce((acc, curr) => {
+        acc += curr.reps
+        return acc
+    }, 0)
 }
 
 /**
@@ -33,17 +35,17 @@ export function getTotalReps(sets) {
  * @export
  * @param {set[]} sets
  * @param {number} offset number of days
- * @param {string} [reference=Date.now()] 
+ * @param {string} [reference=Date.now()]
  * @returns {number} total reps performed
  */
 export function getTotalFromDays(sets, offset, reference = Date.now()) {
-  const dayOffset = moment(reference).subtract(offset, "day");
-  return sets.reduce((acc, set) => {
-    if (moment(set.createdAt).isAfter(dayOffset, "day")) {
-      acc += set.reps;
-    }
-    return acc;
-  }, 0);
+    const dayOffset = moment(reference).subtract(offset, 'day')
+    return sets.reduce((acc, set) => {
+        if (moment(set.createdAt).isAfter(dayOffset, 'day')) {
+            acc += set.reps
+        }
+        return acc
+    }, 0)
 }
 
 /**
@@ -54,15 +56,15 @@ export function getTotalFromDays(sets, offset, reference = Date.now()) {
  * @param {string} [format="YYYY-MM-DD"]
  * @returns {string[]} array of days
  */
-export function getLastNDayInArray(nDays, format = "YYYY-MM-DD") {
-  return Array(nDays)
-    .fill()
-    .map((_, index) => {
-      return moment()
-        .subtract(index, "day")
-        .format(format);
-    });
-} 
+export function getLastNDayInArray(nDays, format = 'YYYY-MM-DD') {
+    return Array(nDays)
+        .fill()
+        .map((_, index) => {
+            return moment()
+                .subtract(index, 'day')
+                .format(format)
+        })
+}
 
 /**
  * Get total reps for each day contained in daysArr
@@ -73,17 +75,17 @@ export function getLastNDayInArray(nDays, format = "YYYY-MM-DD") {
  * @returns {object}
  */
 export function getTotalPerDay(daysArr, sets) {
-  return daysArr.map(day => {
-    return {
-      [day]: sets.reduce((acc, set) => {
-        if (moment(day).isSame(set.createdAt, "day")) {
-          acc += set.reps;
-        }
+    return daysArr.map(day => {
+        return {
+            [day]: sets.reduce((acc, set) => {
+                if (moment(day).isSame(set.createdAt, 'day')) {
+                    acc += set.reps
+                }
 
-        return acc;
-      }, 0)
-    };
-  });
+                return acc
+            }, 0),
+        }
+    })
 }
 
 /**
@@ -94,9 +96,12 @@ export function getTotalPerDay(daysArr, sets) {
  * @returns {object[][]}
  */
 export function groupSetsPerWeek(totalPerDay) {
-  return totalPerDay.reduce((acc, day, index) => {
-    index % 7 === 0 ? acc.push([day]) : acc[acc.length - 1].push(day);
-    return acc;
-  }, []);
+    return totalPerDay.reduce((acc, day, index) => {
+        if (index % 7 === 0) {
+            acc.push([day])
+        } else {
+            acc[acc.length - 1].push(day)
+        }
+        return acc
+    }, [])
 }
-

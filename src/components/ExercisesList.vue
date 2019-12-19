@@ -1,15 +1,16 @@
 <template>
-  <div class="exercisesList">
-    <ExerciseListItem />
-    <AddSetForm />
-  </div>
+    <div class="exercisesList">
+        <ExerciseListItem />
+        <AddSetForm />
+    </div>
 </template>
 
 <script>
-import ExerciseListItem from "@/components/ExerciseListItem/index.vue";
-import AddSetForm from "@/components/AddSetForm.vue";
+import ExerciseListItem from './ExerciseListItem/index'
+import AddSetForm from './AddSetForm'
+
 export default {
-  name: "ExerciseList",
-  components: { ExerciseListItem, AddSetForm }
-};
+    name: 'ExerciseList',
+    components: { ExerciseListItem, AddSetForm },
+}
 </script>
