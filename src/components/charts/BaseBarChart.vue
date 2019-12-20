@@ -1,16 +1,35 @@
 <template>
-    <div class="baseBarChart">
-        <apexchart :width="width" type="bar" :options="options" :series="series" />
-    </div>
+    <BaseContainer>
+        <div class="baseBarChart">
+            <p class="title" :style="{ color: titleColor }">
+                {{ title }}
+            </p>
+            <apexchart :height="height" :width="width" type="bar" :options="options" :series="series" />
+        </div>
+    </BaseContainer>
 </template>
 
 <script>
+import BaseContainer from '../containers/BaseContainer'
+
 export default {
     name: 'BaseBarChart',
     props: {
+        title: {
+            type: String,
+            default: () => 'Last 10 weeks',
+        },
+        titleColor: {
+            type: String,
+            default: () => '#ff1744',
+        },
         width: {
             type: Number,
-            default: () => 500,
+            required: true,
+        },
+        height: {
+            type: Number,
+            required: true,
         },
         options: {
             type: Object,
@@ -21,8 +40,19 @@ export default {
                         show: false,
                     },
                 },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '50%',
+                        endingShape: 'rounded',
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                colors: ['#FF1744'],
                 xaxis: {
-                    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+                    categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 },
             }),
         },
@@ -38,11 +68,24 @@ export default {
             },
         },
     },
+    components: { BaseContainer },
 }
 </script>
 
 <style lang="scss" scoped>
 .baseBarChart {
-    background-color: white;
+    margin: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+        width: 100%;
+        text-align: left;
+        font-weight: 600;
+        padding-top: 1rem;
+        padding-left: 1.2rem;
+    }
 }
 </style>

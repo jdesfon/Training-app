@@ -21,6 +21,12 @@
         </div>
 
         <BaseHeatMap class="baseHeatMap" :width="heatMap.width" :height="heatMap.height" :series="heatMap.series" />
+        <BaseBarChart
+            class="baseBarChart"
+            :width="barChart.width"
+            :height="barChart.height"
+            :series="barChart.series"
+        />
     </div>
 </template>
 
@@ -29,14 +35,15 @@ import { mapGetters } from 'vuex'
 import { EXERCISE } from '../store-types/module-names'
 import { GET_SETS } from '../store-types/getters-types'
 import BaseHeatMap from '../components/charts/BaseHeatMap'
+import BaseBarChart from '../components/charts/BaseBarChart'
 import Header from '../components/Header'
 import SingleNumber from '../components/charts/SingleNumber'
 
 import {
-    getTotalReps,
-    getTotalFromDays,
     getLastNDayInArray,
+    getTotalFromDays,
     getTotalPerDay,
+    getTotalReps,
     groupSetsPerWeek,
 } from '../helpers/setsHelper'
 
@@ -44,37 +51,18 @@ export default {
     name: 'Exercise',
     components: {
         BaseHeatMap,
+        BaseBarChart,
         Header,
         SingleNumber,
     },
     mounted() {
         this.exerciseSlug = this.$route.params.name
-        const today = getTotalFromDays(this.sets, 0)
-        const lastWeek = getTotalFromDays(this.sets, 6)
-        const lastMonth = getTotalFromDays(this.sets, 29)
-        const total = getTotalReps(this.sets)
-
-        const daysArr = getLastNDayInArray(28)
-        const totalPerDay = getTotalPerDay(daysArr, this.sets)
-        const groupByWeek = groupSetsPerWeek(totalPerDay)
-        this.heatMap.series = groupByWeek
-            .map((group, index) => {
-                return {
-                    name: `w${index}`,
-                    data: group.map((day, dayIndex) => {
-                        return {
-                            x: `d${dayIndex + 1}`,
-                            y: Object.values(day)[0],
-                        }
-                    }),
-                }
-            })
-            .reverse()
-
-        this.today = today
-        this.lastWeek = lastWeek
-        this.lastMonth = lastMonth
-        this.total = total
+        this.heatMap.series = this.generateHeapMapSeries()
+        this.barChart.series = this.generateBarChartSeries()
+        this.today = getTotalFromDays(this.sets, 0)
+        this.lastWeek = getTotalFromDays(this.sets, 6)
+        this.lastMonth = getTotalFromDays(this.sets, 29)
+        this.total = getTotalReps(this.sets)
     },
     data() {
         return {
@@ -88,7 +76,51 @@ export default {
                 width: 342,
                 series: [],
             },
+            barChart: {
+                height: 224,
+                width: 342,
+                series: [],
+            },
         }
+    },
+    methods: {
+        generateHeapMapSeries() {
+            const daysArr = getLastNDayInArray(28)
+            const totalPerDay = getTotalPerDay(daysArr, this.sets)
+            const groupByWeek = groupSetsPerWeek(totalPerDay)
+            return groupByWeek
+                .map((group, index) => {
+                    return {
+                        name: `w${index}`,
+                        data: group.map((day, dayIndex) => {
+                            return {
+                                x: `d${dayIndex + 1}`,
+                                y: Object.values(day)[0],
+                            }
+                        }),
+                    }
+                })
+                .reverse()
+        },
+        generateBarChartSeries() {
+            const daysArr = getLastNDayInArray(70)
+            const totalPerDay = getTotalPerDay(daysArr, this.sets)
+            const groupByWeek = groupSetsPerWeek(totalPerDay)
+            const data = groupByWeek
+                .map(group => {
+                    return group.reduce((acc, curr) => {
+                        return acc + Object.values(curr)[0]
+                    }, 0)
+                })
+                .reverse()
+
+            return [
+                {
+                    name: 'last 10 weeks',
+                    data,
+                },
+            ]
+        },
     },
     computed: {
         ...mapGetters(EXERCISE, {
@@ -127,7 +159,8 @@ export default {
         }
     }
 
-    .baseHeatMap {
+    .baseHeatMap,
+    .baseBarChart {
         width: 100%;
         margin: 0.25rem 0;
     }
