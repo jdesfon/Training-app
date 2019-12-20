@@ -25,7 +25,7 @@
                 rounded
                 required
             />
-            <v-btn dark large block rounded color="#ff1744">
+            <v-btn @click="handleSubmit" dark large block rounded color="#ff1744">
                 sign in
             </v-btn>
         </v-form>

@@ -1,42 +1,47 @@
 <template>
-    <v-form ref="loginForm" v-model="isValid" lazy-validation>
-        <v-text-field
-            id="email"
-            type="email"
-            placeholder="email"
-            :rules="emailRules"
-            v-model="email"
-            autofocus
-            rounded
-            solo
-            required
-        />
-
-        <v-text-field
-            id="password"
-            label="password"
-            type="password"
-            :rules="passwordRules"
-            v-model="password"
-            rounded
-            solo
-            required
-        />
-
-        <v-text-field
-            type="password"
-            label="confirm password"
-            :rules="passwordConfirmRules"
-            v-model="passwordConfirm"
-            rounded
-            solo
-            required
-        />
-
-        <v-btn color="#ff1744" dark rounded large block>
-            sign up
+    <div class="signUp">
+        <v-btn to="/" absolute top left icon large>
+            <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-    </v-form>
+        <v-form ref="loginForm" v-model="isValid" lazy-validation>
+            <v-text-field
+                id="email"
+                type="email"
+                placeholder="email"
+                :rules="emailRules"
+                v-model="email"
+                autofocus
+                rounded
+                solo
+                required
+            />
+
+            <v-text-field
+                id="password"
+                label="password"
+                type="password"
+                :rules="passwordRules"
+                v-model="password"
+                rounded
+                solo
+                required
+            />
+
+            <v-text-field
+                type="password"
+                label="confirm password"
+                :rules="passwordConfirmRules"
+                v-model="passwordConfirm"
+                rounded
+                solo
+                required
+            />
+
+            <v-btn color="#ff1744" dark rounded large block>
+                sign up
+            </v-btn>
+        </v-form>
+    </div>
 </template>
 
 <script>
@@ -63,11 +68,13 @@ export default {
             signUp: SIGN_UP,
         }),
         handleSubmit() {
-            this.signUp({
-                email: this.email,
-                password: this.password,
-            })
-            this.clearForm()
+            if (this.password === this.passwordConfirm) {
+                this.signUp({
+                    email: this.email,
+                    password: this.password,
+                })
+                this.clearForm()
+            }
         },
         clearForm() {
             this.email = ''
