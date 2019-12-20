@@ -40,7 +40,7 @@ import { SIGN_IN, IS_CURRENT_SESSION } from '../../store-types/actions-types'
 export default {
     name: 'SignIn',
     mounted() {
-        // this.isCurrentSession();
+        this.isCurrentSession()
     },
     data: () => ({
         email: '',

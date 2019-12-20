@@ -28,7 +28,7 @@ export const actions = {
                 router.push({ name: 'home' })
             })
             .catch(() => {
-                router.push({ name: 'login' })
+                router.push({ name: 'landing' })
             })
             .finally(() => {
                 commit(SET_LOADING, false)

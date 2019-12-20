@@ -9,7 +9,7 @@ import SignIn from '../views/auth/SignIn'
 import SignUp from '../views/auth/SignUp'
 import Landing from '../views/Landing'
 import store from '../store'
-// import authenticated from '../middleware/authenticated'
+import authenticated from '../middleware/authenticated'
 
 Vue.use(VueRouter)
 
@@ -25,7 +25,7 @@ const routes = [
         component: Default,
         redirect: { name: 'exercises' },
         meta: {
-            // middleware: authenticated
+            middleware: authenticated,
         },
         children: [
             {
@@ -44,9 +44,6 @@ const routes = [
         path: '/auth',
         name: 'auth',
         component: Auth,
-        meta: {
-            // middleware: authenticated
-        },
         children: [
             {
                 name: 'signIn',
@@ -62,7 +59,7 @@ const routes = [
     },
     {
         path: '**',
-        redirect: { name: 'signIn' },
+        redirect: { name: 'landing' },
     },
 ]
 

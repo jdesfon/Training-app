@@ -4,7 +4,7 @@ export default function({ store, router, next, to }) {
         return router.replace({ name: 'home' })
     }
     if (!isAuthenticated && to.name !== 'login') {
-        return router.replace({ name: 'login' })
+        return router.replace({ name: 'landing' })
     }
     return next()
 }
