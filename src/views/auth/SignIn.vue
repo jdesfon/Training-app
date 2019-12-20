@@ -1,19 +1,35 @@
 <template>
-    <v-form ref="loginForm" v-model="isValid" lazy-validation>
-        <v-text-field type="email" label="email" :rules="emailRules" v-model="email" solo rounded required />
-        <v-text-field
-            type="password"
-            label="password"
-            :rules="passwordRules"
-            v-model="password"
-            solo
-            rounded
-            required
-        />
-        <v-btn dark large block rounded>
-            login
+    <div class="signIn">
+        <v-btn to="/" absolute top left icon large>
+            <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-    </v-form>
+
+        <v-form ref="loginForm" v-model="isValid" lazy-validation>
+            <v-text-field
+                color="white"
+                type="email"
+                label="email"
+                :rules="emailRules"
+                v-model="email"
+                solo
+                rounded
+                required
+            />
+            <v-text-field
+                type="password"
+                label="password"
+                :rules="passwordRules"
+                v-model="password"
+                color="white"
+                solo
+                rounded
+                required
+            />
+            <v-btn dark large block rounded color="#ff1744">
+                sign in
+            </v-btn>
+        </v-form>
+    </div>
 </template>
 
 <script>
@@ -32,7 +48,7 @@ export default {
         emailRules: [v => !!v || 'E-mail is required', v => /.+@.+\..+/.test(v) || 'E-mail must be valid'],
         passwordRules: [
             v => !!v || 'Password is required',
-            v => (v && v.length >= 8) || 'Name must be at least 8 characters',
+            v => (v && v.length >= 8) || 'Password must be at least 8 characters',
         ],
         isValid: false,
     }),

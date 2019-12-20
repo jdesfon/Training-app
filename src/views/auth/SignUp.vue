@@ -33,7 +33,7 @@
             required
         />
 
-        <v-btn dark rounded large block>
+        <v-btn color="#ff1744" dark rounded large block>
             sign up
         </v-btn>
     </v-form>

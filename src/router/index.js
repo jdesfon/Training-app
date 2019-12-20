@@ -7,6 +7,7 @@ import Exercise from '../views/Exercise'
 import Auth from '../views/auth/index'
 import SignIn from '../views/auth/SignIn'
 import SignUp from '../views/auth/SignUp'
+import Landing from '../views/Landing'
 import store from '../store'
 // import authenticated from '../middleware/authenticated'
 
@@ -15,6 +16,11 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
+        name: 'landing',
+        component: Landing,
+    },
+    {
+        path: '/home',
         name: 'home',
         component: Default,
         redirect: { name: 'exercises' },
@@ -24,12 +30,12 @@ const routes = [
         children: [
             {
                 name: 'exercises',
-                path: 'exercises',
+                path: '/exercises',
                 component: Home,
             },
             {
                 name: 'exercise',
-                path: 'exercise/:name',
+                path: '/exercise/:name',
                 component: Exercise,
             },
         ],

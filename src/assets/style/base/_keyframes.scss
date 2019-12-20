@@ -1,0 +1,31 @@
+.fade-in {
+  -webkit-animation: fade-in 1s ease-in-out;
+  animation: fade-in 1s ease-in-out;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  -webkit-animation: slide-in-left 1.2s ease-out;
+  animation: slide-in-left 1.2s ease-out;
+}
+
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-3rem);
+    transform: translateX(-3rem);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
