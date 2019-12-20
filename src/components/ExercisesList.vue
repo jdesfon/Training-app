@@ -1,7 +1,7 @@
 <template>
     <div class="exercisesList">
-        <ExerciseListItem />
-        <AddSetForm />
+        <ExerciseListItem @click="showAddSet" />
+        <AddSetForm v-show="isAddSetVisible" />
     </div>
 </template>
 
@@ -12,6 +12,14 @@ import AddSetForm from './AddSetForm'
 export default {
     name: 'ExerciseList',
     components: { ExerciseListItem, AddSetForm },
+    data: () => ({
+        isAddSetVisible: false,
+    }),
+    methods: {
+        showAddSet() {
+            this.isAddSetVisible = !this.isAddSetVisible
+        },
+    },
 }
 </script>
 

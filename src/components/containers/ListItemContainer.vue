@@ -1,9 +1,9 @@
 <template>
     <div class="listItemContainer">
-        <main>
+        <main @click="handleClick">
             <slot name="main"></slot>
         </main>
-        <footer>
+        <footer @click="handleClick">
             <slot name="footer"></slot>
         </footer>
     </div>
@@ -12,6 +12,11 @@
 <script>
 export default {
     name: 'ListItemContainer',
+    methods: {
+        handleClick() {
+            this.$emit('click')
+        },
+    },
 }
 </script>
 

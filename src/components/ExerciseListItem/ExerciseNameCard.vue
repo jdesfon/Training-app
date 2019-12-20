@@ -1,5 +1,5 @@
 <template>
-    <ListItemContainer class="exerciseNameCard">
+    <ListItemContainer class="exerciseNameCard" @click="handleClick">
         <template #main>
             {{ exerciseName }}
         </template>
@@ -22,11 +22,17 @@ export default {
         },
     },
     components: { ListItemContainer },
+    methods: {
+        handleClick() {
+            this.$emit('click')
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 .exerciseNameCard {
     width: calc(100% - 4.5rem);
+    cursor: pointer;
 }
 </style>

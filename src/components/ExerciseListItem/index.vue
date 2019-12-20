@@ -1,6 +1,6 @@
 <template>
     <div class="theExerciseListItem">
-        <ExerciseNameCard :exercise-name="exercise.name" />
+        <ExerciseNameCard @click="handleNameCardClick" :exercise-name="exercise.name" />
         <ExerciseStatsButton />
     </div>
 </template>
@@ -33,6 +33,9 @@ export default {
         ...mapMutations(EXERCISE, {
             addSet: ADD_SET,
         }),
+        handleNameCardClick() {
+            this.$emit('click', true)
+        },
         submitReps(reps) {
             this.addSet({
                 exercise: this.exercise,
