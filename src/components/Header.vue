@@ -1,5 +1,8 @@
 <template>
     <div class="header">
+        <v-btn v-if="nav" fab small depressed :to="to">
+            <v-icon>keyboard_arrow_left</v-icon>
+        </v-btn>
         <h1>{{ title }}</h1>
     </div>
 </template>
@@ -12,6 +15,14 @@ export default {
             type: String,
             required: true,
         },
+        to: {
+            type: String,
+            default: () => '/',
+        },
+        nav: {
+            type: Boolean,
+            default: () => false,
+        },
     },
 }
 </script>
@@ -19,6 +30,8 @@ export default {
 <style lang="scss" scoped>
 .header {
     width: 100%;
+    display: flex;
+    align-items: center;
     color: #424242;
     border-bottom: 1px solid black;
     text-align: left;
