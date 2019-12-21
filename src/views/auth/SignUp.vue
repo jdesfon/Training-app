@@ -37,7 +37,7 @@
                 required
             />
 
-            <v-btn color="#ff1744" dark rounded large block>
+            <v-btn @click="handleSubmit" color="#ff1744" dark rounded large block>
                 sign up
             </v-btn>
         </v-form>
@@ -48,9 +48,11 @@
 import { mapActions } from 'vuex'
 import { USER } from '../../store-types/module-names'
 import { SIGN_UP } from '../../store-types/actions-types'
+import notifications from '../../mixins/notifications'
 
 export default {
     name: 'SignUp',
+    mixins: [notifications],
     data: () => ({
         email: '',
         password: '',
@@ -74,6 +76,8 @@ export default {
                     password: this.password,
                 })
                 this.clearForm()
+            } else {
+                this.notifyError('Passwords must match!')
             }
         },
         clearForm() {

@@ -1,8 +1,8 @@
 import { Auth } from 'aws-amplify'
 import router from '../../router'
 
-import { SIGN_IN, SIGN_UP, SIGN_OUT, IS_CURRENT_SESSION } from '../../store-types/actions-types'
-import { SET_AUTHENTICATION_STATUS, SET_LOADING } from '../../store-types/mutations-types'
+import { SIGN_IN, SIGN_UP, SIGN_OUT, CONFIRM_EMAIL, IS_CURRENT_SESSION } from '../../store-types/actions-types'
+import { SET_AUTHENTICATION_STATUS, SET_LOADING, SET_USER } from '../../store-types/mutations-types'
 import { GET_LOADING } from '../../store-types/getters-types'
 
 export const actions = {
@@ -14,7 +14,7 @@ export const actions = {
                 router.push({ name: 'home' })
             })
             .catch(error => {
-                console.error(error.message)
+                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
             })
             .finally(() => {
                 commit(SET_LOADING, false)
@@ -38,24 +38,39 @@ export const actions = {
         commit(SET_LOADING, true)
         return Auth.signUp(email, password)
             .then(() => {
-                commit(SET_AUTHENTICATION_STATUS, false)
-                console.log('signed in')
+                commit(SET_USER, { email, password })
+                router.push({ name: 'confirm' })
             })
             .catch(error => {
-                console.error(error.message)
+                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
             })
             .finally(() => {
                 commit(SET_LOADING, false)
             })
     },
+    async [CONFIRM_EMAIL]({ commit, state }, confirmationCode) {
+        commit(SET_LOADING, true)
+        try {
+            await Auth.confirmSignUp(state.user.email, confirmationCode)
+            await Auth.signIn(state.user.email, state.user.password)
+            commit(SET_AUTHENTICATION_STATUS, true)
+            router.push({ name: 'home' })
+        } catch (error) {
+            commit(SET_AUTHENTICATION_STATUS, false)
+            commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
+        } finally {
+            commit(SET_LOADING, false)
+        }
+    },
     [SIGN_OUT]({ commit }) {
         commit(SET_LOADING, true)
         return Auth.signOut()
             .then(() => {
-                console.log('logged out')
+                commit(SET_AUTHENTICATION_STATUS, false)
+                commit('notification/NOTIFICATION_INFO', 'Logged out', { root: true })
             })
             .catch(error => {
-                console.error(error.message)
+                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
             })
             .finally(() => {
                 commit(SET_LOADING, false)
@@ -70,6 +85,10 @@ export const mutations = {
     [SET_LOADING](state, isLoading) {
         state.isLoading = isLoading
     },
+    [SET_USER](state, { email, password }) {
+        state.user.email = email
+        state.user.password = password
+    },
 }
 
 export const getters = {
@@ -78,6 +97,10 @@ export const getters = {
 
 export const state = () => ({
     isAuthenticated: false,
+    user: {
+        email: null,
+        password: null,
+    },
     isLoading: false,
 })
 
