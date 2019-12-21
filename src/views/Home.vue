@@ -33,10 +33,20 @@ export default {
 
 <style lang="scss" scoped>
 .home {
+    background-image: url('../assets/svg/wave(2).svg');
+    background-size: contain;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    width: 342px;
+    justify-content: center;
+
+    @media (max-width: 960px) {
+        background-size: cover;
+    }
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        width: 342px;
+    }
 }
 </style>

@@ -35,10 +35,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-#app {
-    display: flex;
-    justify-content: center;
-}
-</style>
