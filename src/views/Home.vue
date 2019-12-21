@@ -1,7 +1,9 @@
 <template>
     <div class="home">
-        <Header :title="title" />
-        <ExercisesList />
+        <div class="home__container">
+            <Header :title="title" />
+            <ExercisesList />
+        </div>
     </div>
 </template>
 
@@ -33,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-    background-image: url('../assets/svg/wave(2).svg');
+    background-image: url('../assets/svg/wave.svg');
     background-size: contain;
     display: flex;
     justify-content: center;

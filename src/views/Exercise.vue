@@ -1,6 +1,6 @@
 <template>
     <div class="exercise">
-        <Header :title="exerciseSlug" />
+        <Header :title="exerciseSlug" nav :to="'/exercises'" />
         <div class="singleNumber-container">
             <template v-for="(stat, index) of numberStats">
                 <template v-if="index === 3">
