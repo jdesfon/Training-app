@@ -4,10 +4,18 @@
             <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
         <h1>{{ title }}</h1>
+
+        <v-btn @click="handleSubmit" small fab depressed>
+            <v-icon>power_settings_new</v-icon>
+        </v-btn>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { USER } from '../store-types/module-names'
+import { SIGN_OUT } from '../store-types/actions-types'
+
 export default {
     name: 'Header',
     props: {
@@ -24,6 +32,14 @@ export default {
             default: () => false,
         },
     },
+    methods: {
+        ...mapActions(USER, {
+            signOut: SIGN_OUT,
+        }),
+        handleSubmit() {
+            this.signOut()
+        },
+    },
 }
 </script>
 
@@ -32,6 +48,7 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     color: #424242;
     border-bottom: 1px solid black;
     text-align: left;

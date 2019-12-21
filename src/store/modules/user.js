@@ -27,9 +27,6 @@ export const actions = {
                 commit(SET_AUTHENTICATION_STATUS, true)
                 router.push({ name: 'home' })
             })
-            .catch(() => {
-                router.push({ name: 'landing' })
-            })
             .finally(() => {
                 commit(SET_LOADING, false)
             })
@@ -67,7 +64,8 @@ export const actions = {
         return Auth.signOut()
             .then(() => {
                 commit(SET_AUTHENTICATION_STATUS, false)
-                commit('notification/NOTIFICATION_INFO', 'Logged out', { root: true })
+                commit('notification/NOTIFICATION_SUCCESS', 'Logged out', { root: true })
+                router.push({ name: 'landing' })
             })
             .catch(error => {
                 commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
