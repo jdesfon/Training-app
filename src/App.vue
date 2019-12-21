@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <router-view />
-        <v-snackbar v-model="snackbar" bottom vertical :color="color" :timeout="timeout">
+        <v-snackbar v-model="isSnackbarVisible" bottom vertical :color="color" :timeout="timeout">
             {{ text }}
         </v-snackbar>
     </div>
@@ -32,6 +32,14 @@ export default {
             color: GET_SNACKBAR_TYPE,
             timeout: GET_SNACKBAR_TIMEOUT,
         }),
+        isSnackbarVisible: {
+            get() {
+                return this.snackbar
+            },
+            set() {
+                this.updateSnackbar(false)
+            },
+        },
     },
 }
 </script>
