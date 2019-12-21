@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Lodash from 'lodash'
 import VueRouter from 'vue-router'
-import Default from '../layouts/Default'
-import Home from '../views/Home'
-import Exercise from '../views/Exercise'
 import Auth from '../views/auth/index'
+import Default from '../layouts/Default'
+import Exercise from '../views/Exercise'
+import Home from '../views/Home'
+import Landing from '../views/Landing'
 import SignIn from '../views/auth/SignIn'
 import SignUp from '../views/auth/SignUp'
-import Landing from '../views/Landing'
+import SignUpConfirm from '../views/auth/SignUpConfirm'
+import SignOut from '../views/auth/SignOut'
 import store from '../store'
 import authenticated from '../middleware/authenticated'
 
@@ -54,6 +56,16 @@ const routes = [
                 name: 'signUp',
                 component: SignUp,
                 path: '/sign-up',
+            },
+            {
+                name: 'confirm',
+                component: SignUpConfirm,
+                path: '/confirm',
+            },
+            {
+                name: 'signOut',
+                component: SignOut,
+                path: '/sign-out',
             },
         ],
     },
