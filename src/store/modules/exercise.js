@@ -14,7 +14,7 @@ export const actions = {
                 commit(SET_EXERCISES, res.Items)
             })
             .catch(error => {
-                console.error(error)
+                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
             })
     },
 }
