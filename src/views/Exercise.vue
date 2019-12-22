@@ -146,6 +146,7 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 342px;
+    margin: 0 auto;
 
     .singleNumber-container {
         width: 100%;
