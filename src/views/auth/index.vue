@@ -1,5 +1,6 @@
 <template>
     <div class="auth">
+        <PageLoader v-if="isLoading" />
         <div class="form fade-in">
             <router-view />
         </div>
@@ -7,8 +8,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { USER } from '../../store-types/module-names'
+import { GET_LOADING } from '../../store-types/getters-types'
+import PageLoader from '../../components/PageLoader'
+
 export default {
     name: 'Auth',
+    components: { PageLoader },
+    computed: {
+        ...mapGetters(USER, {
+            isLoading: GET_LOADING,
+        }),
+    },
 }
 </script>
 
