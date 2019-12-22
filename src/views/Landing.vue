@@ -9,11 +9,23 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { USER } from '../store-types/module-names'
+import { IS_CURRENT_SESSION } from '../store-types/actions-types'
+
 export default {
     name: 'Landing',
+    mounted() {
+        this.isCurrentSession()
+    },
     data: () => ({
         appTitle: 'Training app',
     }),
+    methods: {
+        ...mapActions(USER, {
+            isCurrentSession: IS_CURRENT_SESSION,
+        }),
+    },
 }
 </script>
 
