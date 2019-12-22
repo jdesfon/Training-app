@@ -20,12 +20,14 @@ export const actions = {
                 commit(SET_LOADING, false)
             })
     },
-    [IS_CURRENT_SESSION]({ commit }) {
+    [IS_CURRENT_SESSION]({ commit }, { redirect }) {
         commit(SET_LOADING, true)
         return Auth.currentSession()
             .then(() => {
                 commit(SET_AUTHENTICATION_STATUS, true)
-                router.push({ name: 'home' })
+                if (redirect) {
+                    router.push({ name: redirect })
+                }
             })
             .finally(() => {
                 commit(SET_LOADING, false)

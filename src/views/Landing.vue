@@ -16,7 +16,7 @@ import { IS_CURRENT_SESSION } from '../store-types/actions-types'
 export default {
     name: 'Landing',
     mounted() {
-        this.isCurrentSession()
+        this.isCurrentSession({ redirect: 'home' })
     },
     data: () => ({
         appTitle: 'Training app',
