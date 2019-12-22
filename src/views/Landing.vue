@@ -21,9 +21,9 @@ export default {
 .landing {
     height: 100vh;
     width: 100%;
-    background-image: url('../assets/svg/landing/undraw_track_and_field_33qn.svg');
-    background-size: contain;
-    background-position: 0% 40%;
+    background-image: url('../assets/svg/landing/undraw_healthy_habit_bh5w.svg');
+    background-size: 80%;
+    background-position: center;
     .title {
         position: absolute;
         color: #212121;
