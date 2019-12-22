@@ -2,14 +2,15 @@
     <div class="home">
         <div class="home__container">
             <Header :title="title" />
-            <ExercisesList />
+            <ExercisesList :exercises="exercises" />
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { EXERCISE } from '../store-types/module-names'
+import { FETCH_EXERCISES } from '../store-types/actions-types'
 import { GET_EXERCISES } from '../store-types/getters-types'
 import Header from '../components/Header'
 import ExercisesList from '../components/ExercisesList'
@@ -20,10 +21,18 @@ export default {
         Header,
         ExercisesList,
     },
+    mounted() {
+        this.fetchExercises()
+    },
     data() {
         return {
             title: 'Home',
         }
+    },
+    methods: {
+        ...mapActions(EXERCISE, {
+            fetchExercises: FETCH_EXERCISES,
+        }),
     },
     computed: {
         ...mapGetters(EXERCISE, {

@@ -12,7 +12,7 @@
                     </v-icon>
                 </button>
             </div>
-            <button class="theAddSetForm__submit-button blue-ripple">
+            <button class="theAddSetForm__submit-button blue-ripple" @click="submitReps">
                 <i class="material-icons">check</i>
             </button>
         </div>
@@ -39,6 +39,9 @@ export default {
             if (this.reps > 0) {
                 this.reps -= 1
             }
+        },
+        submitReps() {
+            this.$emit('onSubmitSet', this.reps)
         },
     },
 }

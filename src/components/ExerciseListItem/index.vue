@@ -1,28 +1,31 @@
 <template>
-    <div class="theExerciseListItem">
-        <ExerciseNameCard @click="handleNameCardClick" :exercise-name="exercise.name" />
-        <ExerciseStatsButton />
+    <div>
+        <div class="theExerciseListItem">
+            <ExerciseNameCard @click="handleNameCardClick" :exercise-name="exercise.name" />
+            <ExerciseStatsButton :exercise-slug="exercise.slug" :exercise-id="exercise.exerciseId" />
+        </div>
+        <AddSetForm v-if="isAddSetVisible" class="scale-in-top" @onSubmitSet="handleSetSubmit" />
     </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
+import AddSetForm from '../AddSetForm'
 import ExerciseNameCard from './ExerciseNameCard'
 import ExerciseStatsButton from './ExerciseStatsButton'
-import { ADD_SET } from '../../store-types/mutations-types'
 import { EXERCISE } from '../../store-types/module-names'
+import { CREATE_SET } from '../../store-types/actions-types'
 
 export default {
     name: 'ExerciseListItem',
     props: {
         exercise: {
             type: Object,
-            default: () => ({
-                name: 'Push ups',
-            }),
+            required: true,
         },
     },
     components: {
+        AddSetForm,
         ExerciseNameCard,
         ExerciseStatsButton,
     },
@@ -30,18 +33,14 @@ export default {
         isAddSetVisible: false,
     }),
     methods: {
-        ...mapMutations(EXERCISE, {
-            addSet: ADD_SET,
+        ...mapActions(EXERCISE, {
+            createSet: CREATE_SET,
         }),
         handleNameCardClick() {
-            this.$emit('click', true)
+            this.isAddSetVisible = !this.isAddSetVisible
         },
-        submitReps(reps) {
-            this.addSet({
-                exercise: this.exercise,
-                reps,
-            })
-
+        handleSetSubmit(reps) {
+            this.createSet({ exerciseId: this.exercise.exerciseId, reps })
             this.isAddSetVisible = false
         },
     },
@@ -54,5 +53,6 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 0.5rem;
 }
 </style>

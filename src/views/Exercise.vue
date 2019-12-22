@@ -1,5 +1,6 @@
 <template>
     <div class="exercise">
+        <PageLoader v-if="isLoading" />
         <Header :title="exerciseSlug" nav :to="'/exercises'" />
         <div class="singleNumber-container">
             <template v-for="(stat, index) of numberStats">
@@ -31,21 +32,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { EXERCISE } from '../store-types/module-names'
+import { LIST_SETS } from '../store-types/actions-types'
 import { GET_SETS } from '../store-types/getters-types'
 import BaseHeatMap from '../components/charts/BaseHeatMap'
 import BaseBarChart from '../components/charts/BaseBarChart'
 import Header from '../components/Header'
+import PageLoader from '../components/PageLoader'
 import SingleNumber from '../components/charts/SingleNumber'
-
-import {
-    getLastNDayInArray,
-    getTotalFromDays,
-    getTotalPerDay,
-    getTotalReps,
-    groupSetsPerWeek,
-} from '../helpers/setsHelper'
 
 export default {
     name: 'Exercise',
@@ -53,19 +48,29 @@ export default {
         BaseHeatMap,
         BaseBarChart,
         Header,
+        PageLoader,
         SingleNumber,
     },
     mounted() {
+        this.exerciseId = this.$route.params.exerciseId
         this.exerciseSlug = this.$route.params.name
-        this.heatMap.series = this.generateHeapMapSeries()
-        this.barChart.series = this.generateBarChartSeries()
-        this.today = getTotalFromDays(this.sets, 0)
-        this.lastWeek = getTotalFromDays(this.sets, 6)
-        this.lastMonth = getTotalFromDays(this.sets, 29)
-        this.total = getTotalReps(this.sets)
+        this.isLoading = true
+        this.fetchSets({ exerciseId: this.exerciseId }).then(() => {
+            const sets = this.sets(this.exerciseId)
+            const { today, lastWeek, lastMonth, total, heatMapSeries, barChartSeries } = sets.stats
+            this.today = today
+            this.lastWeek = lastWeek
+            this.lastMonth = lastMonth
+            this.total = total
+            this.heatMap.series = heatMapSeries
+            this.barChart.series = barChartSeries
+            this.isLoading = false
+        })
     },
     data() {
         return {
+            isLoading: false,
+            exerciseId: null,
             exerciseSlug: '',
             today: 0,
             lastWeek: 0,
@@ -84,43 +89,9 @@ export default {
         }
     },
     methods: {
-        generateHeapMapSeries() {
-            const daysArr = getLastNDayInArray(28)
-            const totalPerDay = getTotalPerDay(daysArr, this.sets)
-            const groupByWeek = groupSetsPerWeek(totalPerDay)
-            return groupByWeek
-                .map((group, index) => {
-                    return {
-                        name: `w${index}`,
-                        data: group.map((day, dayIndex) => {
-                            return {
-                                x: `d${dayIndex + 1}`,
-                                y: Object.values(day)[0],
-                            }
-                        }),
-                    }
-                })
-                .reverse()
-        },
-        generateBarChartSeries() {
-            const daysArr = getLastNDayInArray(70)
-            const totalPerDay = getTotalPerDay(daysArr, this.sets)
-            const groupByWeek = groupSetsPerWeek(totalPerDay)
-            const data = groupByWeek
-                .map(group => {
-                    return group.reduce((acc, curr) => {
-                        return acc + Object.values(curr)[0]
-                    }, 0)
-                })
-                .reverse()
-
-            return [
-                {
-                    name: 'last 10 weeks',
-                    data,
-                },
-            ]
-        },
+        ...mapActions(EXERCISE, {
+            fetchSets: LIST_SETS,
+        }),
     },
     computed: {
         ...mapGetters(EXERCISE, {
