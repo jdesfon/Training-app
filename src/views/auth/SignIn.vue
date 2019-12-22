@@ -62,7 +62,6 @@ export default {
                 email: this.email,
                 password: this.password,
             })
-            this.clearForm()
         },
         clearForm() {
             this.email = ''

@@ -75,7 +75,6 @@ export default {
                     email: this.email,
                     password: this.password,
                 })
-                this.clearForm()
             } else {
                 this.notifyError('Passwords must match!')
             }
