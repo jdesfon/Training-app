@@ -3,19 +3,16 @@
         <v-btn v-if="nav" fab small depressed :to="to">
             <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <h1>{{ title }}</h1>
 
-        <v-btn @click="handleSubmit" small fab depressed>
+        <div class="header__title">{{ title }}</div>
+
+        <v-btn @click="handleSubmit" elevation="24" small fab>
             <v-icon>power_settings_new</v-icon>
         </v-btn>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { USER } from '../store-types/module-names'
-import { SIGN_OUT } from '../store-types/actions-types'
-
 export default {
     name: 'Header',
     props: {
@@ -33,11 +30,8 @@ export default {
         },
     },
     methods: {
-        ...mapActions(USER, {
-            signOut: SIGN_OUT,
-        }),
         handleSubmit() {
-            this.signOut()
+            this.$router.push({ name: 'signOut' })
         },
     },
 }
@@ -45,15 +39,23 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+    position: relative;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
     width: 100%;
+    min-height: 10vh;
+    margin-bottom: 1rem;
+    color: #424242;
+    text-align: left;
+    font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #424242;
-    border-bottom: 1px solid black;
-    text-align: left;
-    font-weight: 900;
-    line-height: 3rem;
-    text-transform: capitalize;
+
+    &__title {
+        background-color: #ffffff;
+        border-radius: 2rem;
+        padding: 0.5rem 1rem;
+    }
 }
 </style>
