@@ -15,9 +15,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { EXERCISE } from '../../store-types/module-names'
-import { UPDATE_SET, DELETE_SET } from '../../store-types/actions-types'
 import BaseContainer from '../containers/BaseContainer'
 
 export default {
@@ -26,10 +23,6 @@ export default {
     props: {
         set: {
             type: Object,
-        },
-        exerciseId: {
-            type: String,
-            required: true,
         },
     },
     mounted() {
@@ -44,18 +37,14 @@ export default {
         },
     },
     methods: {
-        ...mapActions(EXERCISE, {
-            updateSet: UPDATE_SET,
-            deleteSet: DELETE_SET,
-        }),
         handleUpdateSet() {
             if (this.repsNumber > 0) {
-                this.updateSet({ setId: this.set.setId, reps: this.repsNumber, exerciseId: this.exerciseId })
+                this.$emit('onUpdateSet', { setId: this.set.setId, reps: this.repsNumber })
                 this.closeDialog()
             }
         },
         handleDeleteSet() {
-            this.deleteSet({ setId: this.set.setId, exerciseId: this.exerciseId })
+            this.$emit('onDeleteSet', { setId: this.set.setId })
             this.closeDialog()
         },
         closeDialog() {

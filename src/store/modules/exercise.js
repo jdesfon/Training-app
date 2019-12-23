@@ -38,35 +38,25 @@ export const actions = {
         return API.post(config.API_NAME, endpoints.createSet, { body: { exerciseId, reps } })
             .then(res => {
                 commit(SET_LAST_SET, { exerciseId, lastSet: res })
-                commit('notification/NOTIFICATION_SUCCESS', 'great!', { root: true })
+                commit('notification/NOTIFICATION_SUCCESS', 'Good Job!', { root: true })
             })
             .catch(error => {
                 commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
             })
     },
-    [UPDATE_SET]({ dispatch, commit }, { setId, reps, exerciseId }) {
+    [UPDATE_SET]({ commit }, { setId, reps }) {
         return API.put(config.API_NAME, endpoints.updateSet(setId), {
             body: {
                 reps,
             },
+        }).catch(error => {
+            commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
         })
-            .then(() => {
-                dispatch(LIST_SETS, { exerciseId })
-                commit('notification/NOTIFICATION_SUCCESS', 'set updated!', { root: true })
-            })
-            .catch(error => {
-                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
-            })
     },
-    [DELETE_SET]({ dispatch, commit }, { setId, exerciseId }) {
-        return API.del(config.API_NAME, endpoints.deleteSet(setId))
-            .then(() => {
-                dispatch(LIST_SETS, { exerciseId })
-                commit('notification/NOTIFICATION_SUCCESS', 'set deleted!', { root: true })
-            })
-            .catch(error => {
-                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
-            })
+    [DELETE_SET]({ commit }, { setId }) {
+        return API.del(config.API_NAME, endpoints.deleteSet(setId)).catch(error => {
+            commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
+        })
     },
     [LIST_SETS]({ commit }, { exerciseId }) {
         return API.get(config.API_NAME, endpoints.listSets(exerciseId))
