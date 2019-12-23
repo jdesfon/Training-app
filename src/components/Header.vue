@@ -4,7 +4,7 @@
             <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
 
-        <div class="header__title">{{ title }}</div>
+        <div class="header__title">{{ formattedTitle }}</div>
 
         <v-btn @click="handleSubmit" elevation="24" small fab>
             <v-icon>power_settings_new</v-icon>
@@ -27,6 +27,11 @@ export default {
         nav: {
             type: Boolean,
             default: () => false,
+        },
+    },
+    computed: {
+        formattedTitle() {
+            return this.title.replace('-', ' ')
         },
     },
     methods: {
