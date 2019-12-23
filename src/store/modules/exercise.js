@@ -1,22 +1,29 @@
 import { API } from 'aws-amplify'
 import endpoints from '../../constants/endpoints'
 import config from '../../config'
-import { FETCH_EXERCISES, CREATE_SET, LIST_SETS } from '../../store-types/actions-types'
-import { ADD_SET, SET_SETS, SET_EXERCISES } from '../../store-types/mutations-types'
-import { GET_EXERCISES, GET_SETS } from '../../store-types/getters-types'
+import { FETCH_EXERCISES, CREATE_SET, LIST_SETS, LAST_SET } from '../../store-types/actions-types'
+import { ADD_SET, SET_SETS, SET_EXERCISES, SET_LAST_SET } from '../../store-types/mutations-types'
+import { GET_EXERCISES, GET_SETS, GET_LAST_SET } from '../../store-types/getters-types'
 
 export const actions = {
-    [FETCH_EXERCISES]({ commit, state }) {
+    [FETCH_EXERCISES]({ dispatch, commit, state }) {
         if (!state.exercises.length) {
             return API.get(config.API_NAME, endpoints.listExercises)
                 .then(res => {
                     commit(SET_EXERCISES, res.Items)
+                    res.Items.map(exercise => dispatch(LAST_SET, exercise.exerciseId))
                 })
                 .catch(error => {
                     commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
                 })
         }
         return 'done'
+    },
+    // eslint-disable-next-line no-unused-vars
+    [LAST_SET]({ commit }, exerciseId) {
+        return API.get(config.API_NAME, endpoints.lastSet(exerciseId)).then(res => {
+            commit(SET_LAST_SET, { exerciseId, lastSet: res[0] })
+        })
     },
     [CREATE_SET]({ commit }, { exerciseId, reps }) {
         return API.post(config.API_NAME, endpoints.createSet, { body: { exerciseId, reps } })
@@ -50,11 +57,19 @@ export const mutations = {
     [SET_EXERCISES]: (state, exercises) => {
         state.exercises = exercises
     },
+    [SET_LAST_SET]: (state, { exerciseId, lastSet }) => {
+        const exerciseIndex = state.exercises.findIndex(exercise => exercise.exerciseId === exerciseId)
+        state.exercises[exerciseIndex].lastSet = lastSet
+    },
 }
 
 export const getters = {
     [GET_EXERCISES]: state => state.exercises,
     [GET_SETS]: state => exerciseId => state.sets[exerciseId],
+    [GET_LAST_SET]: state => exerciseId => {
+        const exerciseIndex = state.exercises.findIndex(exercise => exercise.exerciseId === exerciseId)
+        return state.exercises[exerciseIndex].lastSet || null
+    },
 }
 
 export const state = () => ({

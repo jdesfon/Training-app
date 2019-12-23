@@ -5,6 +5,7 @@ export const SET_LOADING = 'SET_LOADING'
 export const ADD_SET = 'ADD_SET'
 export const SET_SETS = 'SET_SETS'
 export const SET_EXERCISES = 'SET_EXERCISES'
+export const SET_LAST_SET = 'SET_LAST_SET'
 
 export const NOTIFICATION_INFO = 'NOTIFICATION_INFO'
 export const NOTIFICATION_SUCCESS = 'NOTIFICATION_SUCCESS'

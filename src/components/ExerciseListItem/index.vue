@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="theExerciseListItem">
-            <ExerciseNameCard @click="handleNameCardClick" :exercise-name="exercise.name" />
+            <ExerciseNameCard @click="handleNameCardClick" :exercise="exercise" />
             <ExerciseStatsButton :exercise-slug="exercise.slug" :exercise-id="exercise.exerciseId" />
         </div>
         <AddSetForm v-if="isAddSetVisible" class="scale-in-top" @onSubmitSet="handleSetSubmit" />

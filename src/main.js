@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Amplify from 'aws-amplify'
+import Moment from 'moment'
 import VueApexCharts from 'vue-apexcharts'
 import App from './App'
 import router from './router'
@@ -7,6 +8,10 @@ import store from './store'
 import config from './config'
 import vuetify from './plugins/vuetify'
 import './assets/style/index.scss'
+
+Vue.filter('unixToDate', function unixToDate(unixTimestamp) {
+    return Moment(unixTimestamp).format('MMM Do HH:mm')
+})
 
 Amplify.configure({
     Auth: {

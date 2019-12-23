@@ -1,27 +1,39 @@
 <template>
     <ListItemContainer class="exerciseNameCard" @click="handleClick">
         <template #main>
-            {{ exerciseName }}
+            {{ exercise.name }}
         </template>
-        <template #footer>
-            <span>last set 10 reps</span>
-            <span>Dec 25th, 10:03</span>
+        <template #footer v-if="lastSet">
+            <span>last set {{ lastSet.reps }} reps</span>
+            <span>{{ lastSet.createdAt | unixToDate }}</span>
         </template>
     </ListItemContainer>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { EXERCISE } from '../../store-types/module-names'
+import { GET_LAST_SET } from '../../store-types/getters-types'
 import ListItemContainer from '../containers/ListItemContainer'
 
 export default {
     name: 'ExerciseNameCard',
     props: {
-        exerciseName: {
-            type: String,
+        exercise: {
+            type: Object,
             required: true,
         },
     },
     components: { ListItemContainer },
+    computed: {
+        ...mapGetters(EXERCISE, {
+            getLastSet: GET_LAST_SET,
+        }),
+        lastSet() {
+            const set = this.getLastSet(this.exercise.exerciseId)
+            return set
+        },
+    },
     methods: {
         handleClick() {
             this.$emit('click')

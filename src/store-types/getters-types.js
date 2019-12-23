@@ -2,6 +2,7 @@ export const GET_LOADING = 'GET_LOADING'
 
 export const GET_EXERCISES = 'GET_EXERCISES'
 export const GET_SETS = 'GET_SETS'
+export const GET_LAST_SET = 'GET_LAST_SET'
 
 export const GET_SNACKBAR = 'GET_SNACKBAR'
 export const GET_SNACKBAR_MESSAGE = 'GET_SNACKBAR_MESSAGE'
