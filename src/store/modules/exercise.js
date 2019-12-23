@@ -29,7 +29,8 @@ export const actions = {
     },
     [CREATE_SET]({ commit }, { exerciseId, reps }) {
         return API.post(config.API_NAME, endpoints.createSet, { body: { exerciseId, reps } })
-            .then(() => {
+            .then(res => {
+                commit(SET_LAST_SET, { exerciseId, lastSet: res })
                 commit('notification/NOTIFICATION_SUCCESS', 'great!', { root: true })
             })
             .catch(error => {
