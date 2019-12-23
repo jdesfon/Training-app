@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 .exerciseNameCard {
-    width: calc(100% - 4.5rem);
+    width: calc(100% - 5rem);
     cursor: pointer;
 }
 </style>
