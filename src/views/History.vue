@@ -15,16 +15,19 @@
         <EditSetDialog
             v-if="isDialogVisible"
             :set="setToEdit"
-            :exerciseId="exerciseId"
+            @onUpdateSet="handleUpdateSet"
+            @onDeleteSet="handleDeleteSet"
             @onClose="isDialogVisible = false"
         />
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { EXERCISE } from '../store-types/module-names'
 import { GET_SETS } from '../store-types/getters-types'
+import { UPDATE_SET, DELETE_SET } from '../store-types/actions-types'
+
 import Header from '../components/Header'
 import EditSetDialog from '../components/history/EditSetDialog'
 
@@ -34,32 +37,43 @@ export default {
     mounted() {
         this.exerciseId = this.$route.params.exerciseId
         this.exerciseSlug = this.$route.params.name
+        this.sets = this.getSets(this.exerciseId).items
     },
     data: () => ({
         exerciseId: null,
         exerciseSlug: '',
         isDialogVisible: false,
+        sets: [],
         setToEdit: {},
     }),
     computed: {
         ...mapGetters(EXERCISE, {
             getSets: GET_SETS,
         }),
-        sets() {
-            const sets = this.getSets(this.exerciseId)
-            if (sets) {
-                return sets.items
-            }
-            return []
-        },
         exerciseStatsUrl() {
             return `/exercise/${this.exerciseSlug}/id/${this.exerciseId}`
         },
     },
     methods: {
+        ...mapActions(EXERCISE, {
+            updateSet: UPDATE_SET,
+            deleteSet: DELETE_SET,
+        }),
         handleSetAction(set) {
             this.setToEdit = set
             this.isDialogVisible = true
+        },
+        handleUpdateSet({ setId, reps }) {
+            this.updateSet({ setId, reps }).then(() => {
+                const setIndex = this.sets.findIndex(set => set.setId === setId)
+                this.sets[setIndex].reps = reps
+            })
+        },
+        handleDeleteSet({ setId }) {
+            this.deleteSet({ setId }).then(() => {
+                const setIndex = this.sets.findIndex(set => set.setId === setId)
+                this.sets.splice(setIndex, 1)
+            })
         },
     },
 }
