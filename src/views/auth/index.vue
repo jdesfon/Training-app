@@ -34,7 +34,12 @@ export default {
     .form {
         background-image: url('../../assets/svg/login/undraw_healthy_habit_bh5w.svg');
         background-position: bottom;
-        background-size: contain;
+        background-size: 550px;
+
+        @media (max-width: 960px) {
+            background-size: 80%;
+        }
+
         flex-grow: 3;
         width: 100%;
         display: flex;

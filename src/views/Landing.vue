@@ -34,8 +34,13 @@ export default {
     height: 100vh;
     width: 100%;
     background-image: url('../assets/svg/landing/undraw_healthy_habit_bh5w.svg');
-    background-size: 80%;
+    background-size: 50%;
     background-position: center;
+
+    @media (max-width: 960px) {
+        background-size: 80%;
+    }
+
     .title {
         position: absolute;
         color: #212121;
@@ -47,8 +52,9 @@ export default {
 
     .auth-container {
         width: 100%;
+        max-width: 400px;
         position: fixed;
-        left: 0;
+        right: 0;
         bottom: 0;
         border-top-left-radius: 25px;
         border-top-right-radius: 25px;
