@@ -10,8 +10,9 @@ export const actions = {
         if (!state.exercises.length) {
             return API.get(config.API_NAME, endpoints.listExercises)
                 .then(res => {
-                    commit(SET_EXERCISES, res.Items)
-                    res.Items.map(exercise => dispatch(LAST_SET, exercise.exerciseId))
+                    const exercises = res.Items
+                    commit(SET_EXERCISES, exercises)
+                    exercises.map(exercise => dispatch(LAST_SET, exercise.exerciseId))
                 })
                 .catch(error => {
                     commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
@@ -23,6 +24,7 @@ export const actions = {
     [LAST_SET]({ commit }, exerciseId) {
         return API.get(config.API_NAME, endpoints.lastSet(exerciseId)).then(res => {
             commit(SET_LAST_SET, { exerciseId, lastSet: res[0] })
+            return res
         })
     },
     [CREATE_SET]({ commit }, { exerciseId, reps }) {
@@ -58,8 +60,14 @@ export const mutations = {
         state.exercises = exercises
     },
     [SET_LAST_SET]: (state, { exerciseId, lastSet }) => {
-        const exerciseIndex = state.exercises.findIndex(exercise => exercise.exerciseId === exerciseId)
-        state.exercises[exerciseIndex].lastSet = lastSet
+        const lastSetIndex = state.lastSets.findIndex(set => {
+            return !!set && set.exerciseId === exerciseId
+        })
+        if (lastSetIndex > -1) {
+            state.lastSets.splice(lastSetIndex, 1, lastSet)
+        } else {
+            state.lastSets.push(lastSet)
+        }
     },
 }
 
@@ -67,14 +75,14 @@ export const getters = {
     [GET_EXERCISES]: state => state.exercises,
     [GET_SETS]: state => exerciseId => state.sets[exerciseId],
     [GET_LAST_SET]: state => exerciseId => {
-        const exerciseIndex = state.exercises.findIndex(exercise => exercise.exerciseId === exerciseId)
-        return state.exercises[exerciseIndex].lastSet || null
+        return state.lastSets.find(set => !!set && set.exerciseId === exerciseId)
     },
 }
 
 export const state = () => ({
     exercises: [],
     sets: {},
+    lastSets: [],
 })
 
 export const namespaced = true

@@ -18,20 +18,23 @@ import ListItemContainer from '../containers/ListItemContainer'
 
 export default {
     name: 'ExerciseNameCard',
+    components: { ListItemContainer },
     props: {
         exercise: {
             type: Object,
             required: true,
         },
     },
-    components: { ListItemContainer },
     computed: {
         ...mapGetters(EXERCISE, {
             getLastSet: GET_LAST_SET,
         }),
         lastSet() {
             const set = this.getLastSet(this.exercise.exerciseId)
-            return set
+            if (set) {
+                return set
+            }
+            return null
         },
     },
     methods: {
