@@ -1,8 +1,13 @@
 <template>
-    <div class="exercise">
-        <div class="exercise__container">
+    <div class="exercise__container">
+        <div class="exercise">
             <PageLoader v-if="isLoading" />
             <Header :title="exerciseSlug" nav :to="'/exercises'" />
+            <div class="exercise-history">
+                <v-btn small depressed @click="handleHistoryClick">
+                    <v-icon>list</v-icon>
+                </v-btn>
+            </div>
             <div class="singleNumber-container">
                 <template v-for="(stat, index) of numberStats">
                     <template v-if="index === 3">
@@ -94,6 +99,15 @@ export default {
         ...mapActions(EXERCISE, {
             fetchSets: LIST_SETS,
         }),
+        handleHistoryClick() {
+            this.$router.push({
+                name: 'history',
+                params: {
+                    name: this.exerciseSlug,
+                    exerciseId: this.exerciseId,
+                },
+            })
+        },
     },
     computed: {
         ...mapGetters(EXERCISE, {
@@ -112,7 +126,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.exercise {
+.exercise__container {
     background-image: url('../assets/svg/wave.svg');
     background-size: contain;
     display: flex;
@@ -122,13 +136,20 @@ export default {
         background-size: cover;
     }
 
-    &__container {
+    .exercise {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 342px;
         margin: 0 auto;
+
+        .exercise-history {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
 
         .singleNumber-container {
             width: 100%;

@@ -105,3 +105,15 @@ export function groupSetsPerWeek(totalPerDay) {
         return acc
     }, [])
 }
+
+export function groupSetsPerDay(sets) {
+    return sets.reduce((acc, set) => {
+        const groupKey = `${set.year}_${set.dayOfYear}`
+        if (!acc[groupKey]) {
+            acc[groupKey] = [set]
+        } else {
+            acc[groupKey].push(set)
+        }
+        return acc
+    }, {})
+}

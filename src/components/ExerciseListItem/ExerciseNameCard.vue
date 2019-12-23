@@ -5,7 +5,7 @@
         </template>
         <template #footer v-if="lastSet">
             <span>last set {{ lastSet.reps }} reps</span>
-            <span>{{ lastSet.createdAt | unixToDate }}</span>
+            <span>{{ lastSet.createdAt | unixToDateTime }}</span>
         </template>
     </ListItemContainer>
 </template>

@@ -3,7 +3,7 @@ export default function({ store, router, next, to }) {
     if (isAuthenticated && to.name === 'login') {
         return router.replace({ name: 'home' })
     }
-    if (!isAuthenticated && to.name !== 'login') {
+    if (!isAuthenticated) {
         return router.replace({ name: 'landing' })
     }
     return next()
