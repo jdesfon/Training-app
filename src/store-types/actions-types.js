@@ -6,5 +6,7 @@ export const IS_CURRENT_SESSION = 'IS_CURRENT_SESSION'
 
 export const FETCH_EXERCISES = 'FETCH_EXERCISES'
 export const CREATE_SET = 'CREATE_SET'
+export const UPDATE_SET = 'UPDATE_SET'
+export const DELETE_SET = 'DELETE_SET'
 export const LIST_SETS = 'LIST_SETS'
 export const LAST_SET = 'LAST_SET'

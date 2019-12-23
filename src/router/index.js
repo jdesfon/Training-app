@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Auth from '../views/auth/index'
 import Default from '../layouts/Default'
 import Exercise from '../views/Exercise'
+import History from '../views/History'
 import Home from '../views/Home'
 import Landing from '../views/Landing'
 import SignIn from '../views/auth/SignIn'
@@ -37,8 +38,13 @@ const routes = [
             },
             {
                 name: 'exercise',
-                path: '/exercise/:name',
+                path: '/exercise/:name/id/:exerciseId',
                 component: Exercise,
+            },
+            {
+                name: 'history',
+                path: '/exercise/:name/history',
+                component: History,
             },
         ],
     },

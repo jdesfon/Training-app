@@ -1,7 +1,14 @@
 import { API } from 'aws-amplify'
 import endpoints from '../../constants/endpoints'
 import config from '../../config'
-import { FETCH_EXERCISES, CREATE_SET, LIST_SETS, LAST_SET } from '../../store-types/actions-types'
+import {
+    FETCH_EXERCISES,
+    CREATE_SET,
+    UPDATE_SET,
+    DELETE_SET,
+    LIST_SETS,
+    LAST_SET,
+} from '../../store-types/actions-types'
 import { ADD_SET, SET_SETS, SET_EXERCISES, SET_LAST_SET } from '../../store-types/mutations-types'
 import { GET_EXERCISES, GET_SETS, GET_LAST_SET } from '../../store-types/getters-types'
 
@@ -32,6 +39,30 @@ export const actions = {
             .then(res => {
                 commit(SET_LAST_SET, { exerciseId, lastSet: res })
                 commit('notification/NOTIFICATION_SUCCESS', 'great!', { root: true })
+            })
+            .catch(error => {
+                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
+            })
+    },
+    [UPDATE_SET]({ dispatch, commit }, { setId, reps, exerciseId }) {
+        return API.put(config.API_NAME, endpoints.updateSet(setId), {
+            body: {
+                reps,
+            },
+        })
+            .then(() => {
+                dispatch(LIST_SETS, { exerciseId })
+                commit('notification/NOTIFICATION_SUCCESS', 'set updated!', { root: true })
+            })
+            .catch(error => {
+                commit('notification/NOTIFICATION_ERROR', error.message, { root: true })
+            })
+    },
+    [DELETE_SET]({ dispatch, commit }, { setId, exerciseId }) {
+        return API.del(config.API_NAME, endpoints.deleteSet(setId))
+            .then(() => {
+                dispatch(LIST_SETS, { exerciseId })
+                commit('notification/NOTIFICATION_SUCCESS', 'set deleted!', { root: true })
             })
             .catch(error => {
                 commit('notification/NOTIFICATION_ERROR', error.message, { root: true })

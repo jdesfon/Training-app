@@ -9,10 +9,14 @@ import config from './config'
 import vuetify from './plugins/vuetify'
 import './assets/style/index.scss'
 
-Vue.filter('unixToDate', function unixToDate(unixTimestamp) {
+Vue.filter('unixToDateTime', function unixToDate(unixTimestamp) {
     return Moment(unixTimestamp)
         .tz('Europe/Paris')
         .format('MMM Do HH:mm')
+})
+
+Vue.filter('unixToDate', function unixToDate(unixTimestamp) {
+    return Moment(unixTimestamp).format('MMM Do')
 })
 
 Amplify.configure({

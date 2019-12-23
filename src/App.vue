@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" data-app="true">
         <router-view />
         <v-snackbar v-model="isSnackbarVisible" top vertical :color="color" :timeout="timeout">
             {{ text }}
