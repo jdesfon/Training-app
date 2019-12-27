@@ -9,15 +9,18 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "commit": "git-cz",
-    "serve:build": "serve -S dist/"
+    "serve:build": "serve -S dist/",
+    "start": "node server.js"
   },
   "dependencies": {
     "apexcharts": "^3.10.1",
     "aws-amplify": "^2.2.0",
     "core-js": "^3.4.3",
+    "express": "^4.17.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
+    "serve-static": "^1.14.1",
     "vue": "^2.6.10",
     "vue-apexcharts": "^1.5.1",
     "vue-router": "^3.1.3",
