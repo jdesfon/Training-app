@@ -39,7 +39,13 @@ export default {
     },
     methods: {
         handleClick() {
-            this.$emit('click')
+            this.$router.push({
+                name: 'exercise',
+                params: {
+                    name: this.exercise.slug,
+                    exerciseId: this.exercise.exerciseId,
+                },
+            })
         },
     },
 }
@@ -47,7 +53,7 @@ export default {
 
 <style lang="scss" scoped>
 .exerciseNameCard {
-    width: calc(100% - 5rem);
+    width: 100%;
     cursor: pointer;
 }
 </style>
