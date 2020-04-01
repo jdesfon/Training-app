@@ -1,38 +1,39 @@
 <template>
     <div class="exercise__container">
         <div class="exercise">
-            <PageLoader v-if="isLoading" />
-            <Header :title="exerciseSlug" nav :to="'/exercises'" />
+            <PageLoader v-if="isLoading"/>
+            <Header :title="exerciseSlug" nav :to="'/exercises'"/>
             <div class="exercise-history">
                 <v-btn small depressed @click="handleHistoryClick">
                     <v-icon>list</v-icon>
                 </v-btn>
             </div>
+            <AddSetForm @onSubmitSet="handleSetSubmit"/>
             <div class="singleNumber-container">
                 <template v-for="(stat, index) of numberStats">
                     <template v-if="index === 3">
                         <SingleNumber
-                            class="singleNumber"
-                            :key="index"
-                            :title="stat.name"
-                            :value="stat.value"
-                            :background-color="'#ff1744'"
-                            :title-color="'#ffffff'"
-                            :number-color="'#ffffff'"
+                                class="singleNumber"
+                                :key="index"
+                                :title="stat.name"
+                                :value="stat.value"
+                                :background-color="'#ff1744'"
+                                :title-color="'#ffffff'"
+                                :number-color="'#ffffff'"
                         />
                     </template>
                     <template v-else>
-                        <SingleNumber class="singleNumber" :key="index" :title="stat.name" :value="stat.value" />
+                        <SingleNumber class="singleNumber" :key="index" :title="stat.name" :value="today"/>
                     </template>
                 </template>
             </div>
 
-            <BaseHeatMap class="baseHeatMap" :width="heatMap.width" :height="heatMap.height" :series="heatMap.series" />
+            <BaseHeatMap class="baseHeatMap" :width="heatMap.width" :height="heatMap.height" :series="heatMap.series"/>
             <BaseBarChart
-                class="baseBarChart"
-                :width="barChart.width"
-                :height="barChart.height"
-                :series="barChart.series"
+                    class="baseBarChart"
+                    :width="barChart.width"
+                    :height="barChart.height"
+                    :series="barChart.series"
             />
         </div>
     </div>
@@ -41,8 +42,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { EXERCISE } from '../store-types/module-names'
-import { LIST_SETS } from '../store-types/actions-types'
+import { CREATE_SET, LIST_SETS } from '../store-types/actions-types'
 import { GET_SETS } from '../store-types/getters-types'
+import AddSetForm from '../components/AddSetForm'
 import BaseHeatMap from '../components/charts/BaseHeatMap'
 import BaseBarChart from '../components/charts/BaseBarChart'
 import Header from '../components/Header'
@@ -52,6 +54,7 @@ import SingleNumber from '../components/charts/SingleNumber'
 export default {
     name: 'Exercise',
     components: {
+        AddSetForm,
         BaseHeatMap,
         BaseBarChart,
         Header,
@@ -61,18 +64,7 @@ export default {
     mounted() {
         this.exerciseId = this.$route.params.exerciseId
         this.exerciseSlug = this.$route.params.name
-        this.isLoading = true
-        this.fetchSets({ exerciseId: this.exerciseId }).then(() => {
-            const sets = this.sets(this.exerciseId)
-            const { today, lastWeek, lastMonth, total, heatMapSeries, barChartSeries } = sets.stats
-            this.today = today
-            this.lastWeek = lastWeek
-            this.lastMonth = lastMonth
-            this.total = total
-            this.heatMap.series = heatMapSeries
-            this.barChart.series = barChartSeries
-            this.isLoading = false
-        })
+        this.setData()
     },
     data() {
         return {
@@ -98,7 +90,23 @@ export default {
     methods: {
         ...mapActions(EXERCISE, {
             fetchSets: LIST_SETS,
+            createSet: CREATE_SET,
         }),
+        setData() {
+            this.isLoading = true
+            this.fetchSets({ exerciseId: this.exerciseId })
+                .then(() => {
+                    const sets = this.sets(this.exerciseId)
+                    const { today, lastWeek, lastMonth, total, heatMapSeries, barChartSeries } = sets.stats
+                    this.today = today
+                    this.lastWeek = lastWeek
+                    this.lastMonth = lastMonth
+                    this.total = total
+                    this.heatMap.series = heatMapSeries
+                    this.barChart.series = barChartSeries
+                    this.isLoading = false
+                })
+        },
         handleHistoryClick() {
             this.$router.push({
                 name: 'history',
@@ -107,6 +115,10 @@ export default {
                     exerciseId: this.exerciseId,
                 },
             })
+        },
+        handleSetSubmit(reps) {
+            this.createSet({ exerciseId: this.exerciseId, reps })
+            .then(this.setData)
         },
     },
     computed: {
@@ -126,48 +138,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.exercise__container {
-    background-image: url('../assets/svg/wave.svg');
-    background-size: contain;
-    display: flex;
-    justify-content: center;
-
-    @media (max-width: 960px) {
-        background-size: cover;
-    }
-
-    .exercise {
-        min-height: 100vh;
+    .exercise__container {
+        background-image: url('../assets/svg/wave.svg');
+        background-size: contain;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 342px;
-        margin: 0 auto;
+        justify-content: center;
 
-        .exercise-history {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
+        @media (max-width: 960px) {
+            background-size: cover;
         }
 
-        .singleNumber-container {
-            width: 100%;
+        .exercise {
+            min-height: 100vh;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            width: 342px;
+            margin: 0 auto;
 
-            .singleNumber {
-                width: calc(50% - 0.25rem);
+            .exercise-history {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+            }
+
+            .singleNumber-container {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                .singleNumber {
+                    width: calc(50% - 0.25rem);
+                    margin: 0.25rem 0;
+                }
+            }
+
+            .baseHeatMap,
+            .baseBarChart {
+                width: 100%;
                 margin: 0.25rem 0;
             }
         }
-
-        .baseHeatMap,
-        .baseBarChart {
-            width: 100%;
-            margin: 0.25rem 0;
-        }
     }
-}
 </style>
