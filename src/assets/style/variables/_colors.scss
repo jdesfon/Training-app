@@ -1,6 +1,12 @@
-$cocoa-lighter: hsla(20, 15.8%, 92.5%, 1);
-$cocoa-light: hsla(16, 15.8%, 81.4%, 1);
+$grey: hsla(0, 0%, 77%, 1);
+$grey-lighter: hsla(0, 0%, 90%, 1);
 
 $black-lighter: hsla(0, 0%, 38%, 1);
-$black-light: hsla(0, 0%, 25.9%, 1);
+$black-light: hsla(348, 0%, 26%, 1);
 $black: hsla(0, 0%, 12.9%, 1);
+
+$red: hsla(348, 100%, 55%, 1);
+$white: #ffffff;
+$blue: hsla(207, 90%, 54%, 1);
+
+$background: $white;

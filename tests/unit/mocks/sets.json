@@ -1,0 +1,112 @@
+[
+  {
+    "setId": "82bcddae-fe2f-4107-815b-58e9543cc9da",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 52,
+    "monthInYear": 11,
+    "dayOfYear": 359,
+    "year": 2018,
+    "createdAt": "2019-12-25T05:13:18.631Z"
+  },
+  {
+    "setId": "89a854de-d31c-404b-8176-621bf2236845",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 52,
+    "monthInYear": 11,
+    "dayOfYear": 360,
+    "year": 2018,
+    "createdAt": "2018-12-26T03:11:28.965Z"
+  },
+  {
+    "setId": "035c8d7d-6334-4767-bdcd-03a546433fa5",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 52,
+    "monthInYear": 11,
+    "dayOfYear": 360,
+    "year": 2018,
+    "createdAt": "2018-12-26T03:46:06.426Z"
+  },
+  {
+    "setId": "03a5d7d8-142f-4333-addd-cc3e091cc7c5",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 52,
+    "monthInYear": 11,
+    "dayOfYear": 361,
+    "year": 2018,
+    "createdAt": "2018-12-27T14:28:23.259Z"
+  },
+  {
+    "setId": "03a5d7d8-142f-4333-addd-cc3e091cc7c5",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 52,
+    "monthInYear": 11,
+    "dayOfYear": 362,
+    "year": 2018,
+    "createdAt": "2018-12-28T14:28:23.259Z"
+  },
+  {
+    "setId": "03a5d7d8-142f-4333-addd-cc3e091cc7c5",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 52,
+    "monthInYear": 11,
+    "dayOfYear": 363,
+    "year": 2018,
+    "createdAt": "2018-12-29T14:28:23.259Z"
+  },
+  {
+    "setId": "2bc580cd-32e6-4188-8f2c-6dd100001b3c",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 1,
+    "monthInYear": 11,
+    "dayOfYear": 365,
+    "year": 2018,
+    "createdAt": "2018-12-31T11:21:49.778Z"
+  },
+  {
+    "setId": "e817455a-4cfa-409d-819f-33ebd3829b4a",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 1,
+    "monthInYear": 0,
+    "dayOfYear": 1,
+    "year": 2019,
+    "createdAt": "2019-01-01T10:25:40.962Z"
+  },
+  {
+    "setId": "bc64bae5-980b-4435-89dc-c6a9429c98aa",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 1,
+    "monthInYear": 0,
+    "dayOfYear": 2,
+    "year": 2019,
+    "createdAt": "2019-01-02T06:07:43.114Z"
+  },
+  {
+    "setId": "82b4483a-4e3a-45e0-ae18-12d80058483e",
+    "userId": "8b28d1ae-4e04-47e9-8c9d-7de587a6126d",
+    "exerciseId": "7d99a5b9-8145-44a5-8df5-ba3786080bf0",
+    "reps": 10,
+    "weekInYear": 1,
+    "monthInYear": 0,
+    "dayOfYear": 3,
+    "year": 2019,
+    "createdAt": "2019-01-03T17:26:50.824Z"
+  }
+]

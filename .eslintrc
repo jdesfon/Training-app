@@ -1,0 +1,45 @@
+{
+    "extends": ["airbnb-base", "plugin:vue/essential", "prettier"],
+    "plugins": ["vue", "prettier"],
+    "env": {
+        "es6": true,
+        "node": true,
+        "mocha": true,
+        "jest": true,
+        "browser": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "globals": {
+        "rootRequire": true,
+        "log": true
+    },
+    "rules": {
+        "max-len": ["error", 120],
+        "semi": [2, "never"],
+        "no-console": [0],
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "js": "never",
+                "vue": "never"
+            }
+        ],
+        "no-param-reassign": [0],
+        "import/no-cycle": [0]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".vue"]
+            }
+        },
+        "import/core-modules": [
+            // for disable "'vue' should be listed in the project's dependencies" error
+            "vue"
+        ]
+    }
+}
