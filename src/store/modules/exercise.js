@@ -27,17 +27,16 @@ export const actions = {
         }
         return 'done'
     },
-    // eslint-disable-next-line no-unused-vars
     [LAST_SET]({ commit }, exerciseId) {
         return API.get(config.API_NAME, endpoints.lastSet(exerciseId)).then(res => {
             commit(SET_LAST_SET, { exerciseId, lastSet: res[0] })
             return res
         })
     },
-    [CREATE_SET]({ commit }, { exerciseId, reps }) {
+    [CREATE_SET]({ dispatch, commit }, { exerciseId, reps }) {
         return API.post(config.API_NAME, endpoints.createSet, { body: { exerciseId, reps } })
-            .then(res => {
-                commit(SET_LAST_SET, { exerciseId, lastSet: res })
+            .then(() => {
+                dispatch(LIST_SETS, { exerciseId })
                 commit('notification/NOTIFICATION_SUCCESS', 'Good Job!', { root: true })
             })
             .catch(error => {
