@@ -37,7 +37,7 @@ export default {
     mounted() {
         this.exerciseId = this.$route.params.exerciseId
         this.exerciseSlug = this.$route.params.name
-        this.sets = this.getSets(this.exerciseId).items
+        this.sets = this.getSets(this.exerciseId).items.sort((a, b) => b.createdAt - a.createdAt)
     },
     data: () => ({
         exerciseId: null,
